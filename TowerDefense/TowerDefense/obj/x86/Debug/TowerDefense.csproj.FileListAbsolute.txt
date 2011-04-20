@@ -4,3 +4,4 @@ D:\Projects\TowerDefense\TowerDefense\TowerDefense\obj\x86\Debug\ResolveAssembly
 D:\Projects\TowerDefense\TowerDefense\TowerDefense\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\Projects\TowerDefense\TowerDefense\TowerDefense\obj\x86\Debug\TowerDefense.exe
 D:\Projects\TowerDefense\TowerDefense\TowerDefense\obj\x86\Debug\TowerDefense.pdb
+D:\Projects\TowerDefense\TowerDefense\TowerDefense\bin\x86\Debug\C5.dll
