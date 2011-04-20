@@ -8,13 +8,16 @@ namespace TowerDefense
 {
     public class Cell
     {
-        protected int g, h, f;
-        protected int x, y;
+        public int g, h, f;
+        public int x, y;
 
         public Cell(Point position)
         {
             x = position.X;
             y = position.Y;
         }
+
+
+
     }
 }

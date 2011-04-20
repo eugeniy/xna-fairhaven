@@ -31,7 +31,12 @@ namespace TowerDefense
 
         public List<Cell> FindPath(Point start, Point end)
         {
-            Cell P = new Cell(start);
+            Cell parent = new Cell(start);
+            parent.g = 0;
+            parent.h = EstimateCost(start, end);
+            parent.f = parent.g + parent.h;
+            open.Add(parent);
+
             while (open.Count > 0)
             {
             }
