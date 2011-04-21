@@ -8,7 +8,7 @@ using C5;
 
 namespace TowerDefense
 {
-    public unsafe class Grid
+    public class Grid
     {
         private bool found = false;
 
