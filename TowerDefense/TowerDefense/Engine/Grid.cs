@@ -11,11 +11,12 @@ namespace TowerDefense
     public class Grid
     {
         protected List<Cell> grid;
-        protected IPriorityQueue<Cell> open;
+        public IntervalHeap<Cell> open;
         protected List<Cell> closed;
 
         public Grid(int width, int height)
         {
+            open = new IntervalHeap<Cell>(width * height, new CellComparer());
         }
 
         /// <summary>

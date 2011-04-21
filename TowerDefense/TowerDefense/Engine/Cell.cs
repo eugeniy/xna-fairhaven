@@ -16,8 +16,13 @@ namespace TowerDefense
             x = position.X;
             y = position.Y;
         }
+    }
 
-
-
+    public class CellComparer : Comparer<Cell>
+    {
+        public override int Compare(Cell x, Cell y)
+        {
+            return x.f.CompareTo(y.f);
+        }
     }
 }
