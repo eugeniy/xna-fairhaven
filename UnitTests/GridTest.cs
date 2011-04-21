@@ -98,5 +98,28 @@ namespace UnitTests
             Assert.AreEqual(pointAdjacent, cell.Adjacent);
 
         }
+
+
+        [Test]
+        public void FindInList()
+        {
+            Point firstPoint = new Point(1, 2);
+            Grid grid = new Grid(4, 4);
+            Cell cell = grid.FindCellInList(grid.m_open, firstPoint);
+
+            Assert.IsNull(cell);
+
+            Point secondPoint = new Point(3, 4);
+            Cell c1 = new Cell(secondPoint);
+            grid.m_open.Add(c1);
+
+            cell = grid.FindCellInList(grid.m_open, firstPoint);
+            Assert.IsNull(cell);
+
+            cell = grid.FindCellInList(grid.m_open, secondPoint);
+            Assert.IsNotNull(cell);
+            Assert.AreEqual(c1, cell);
+        }
+
     }
 }

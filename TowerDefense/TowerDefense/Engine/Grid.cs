@@ -147,7 +147,7 @@ namespace TowerDefense
 
 
 
-        private Cell FindCellInList(IEnumerable<Cell> list, Point target)
+        public Cell FindCellInList(IEnumerable<Cell> list, Point target)
         {
             foreach (Cell c in list)
             {
