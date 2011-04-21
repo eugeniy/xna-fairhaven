@@ -47,5 +47,41 @@ namespace UnitTests
             Assert.AreEqual(y, grid.open.FindMin());
             Assert.AreEqual(x, grid.open.FindMax());
         }
+
+        [Test]
+        public void CheckAdjacent()
+        {
+            Point zero = new Point(0, 0);
+            var zeroAdjacent = new Point[] {
+                new Point(0, 1),
+                new Point(1, 1),
+                new Point(1, 0),
+                new Point(1, -1),
+                new Point(0, -1),
+                new Point(-1, -1),
+                new Point(-1, 0),
+                new Point(-1, 1)
+            };
+
+            Cell cell = new Cell(zero);
+            Assert.AreEqual(8, cell.Adjacent.Length);
+            Assert.AreEqual(zeroAdjacent, cell.Adjacent);
+
+            Point point = new Point(5, 5);
+            var pointAdjacent = new Point[] {
+                new Point(5, 6),
+                new Point(6, 6),
+                new Point(6, 5),
+                new Point(6, 4),
+                new Point(5, 4),
+                new Point(4, 4),
+                new Point(4, 5),
+                new Point(4, 6)
+            };
+
+            cell = new Cell(point);
+            Assert.AreEqual(pointAdjacent, cell.Adjacent);
+
+        }
     }
 }

@@ -10,13 +10,18 @@ namespace TowerDefense
 {
     public class Grid
     {
+        private int capacity = 16;
         protected List<Cell> grid;
         public IntervalHeap<Cell> open;
         protected List<Cell> closed;
+        
 
         public Grid(int width, int height)
         {
-            open = new IntervalHeap<Cell>(width * height, new CellComparer());
+            capacity = width * height;
+            grid = new List<Cell>(capacity);
+            open = new IntervalHeap<Cell>(capacity, new CellComparer());
+            closed = new List<Cell>(capacity);
         }
 
         /// <summary>
@@ -32,14 +37,37 @@ namespace TowerDefense
 
         public List<Cell> FindPath(Point start, Point end)
         {
+            // Set parent to a starting point and set its g, h, f values
             Cell parent = new Cell(start);
             parent.g = 0;
             parent.h = EstimateCost(start, end);
             parent.f = parent.g + parent.h;
+
+            // Add parent to the open list, should be the only cell at this point
             open.Add(parent);
 
             while (open.Count > 0)
             {
+                // Find the cell with the lowest f value
+                var best = open.FindMin();
+
+                // If the best cell is the end, we're done
+                if (best.Position == end)
+                {
+                    return closed;
+                }
+
+                // Open list is empty means we weren't able to find the path
+                if (open.IsEmpty)
+                {
+                    return null;
+                }
+
+                // Walk through valid adjacent cells
+                foreach (Point p in best.Adjacent)
+                {
+
+                }
             }
             return closed;
         }

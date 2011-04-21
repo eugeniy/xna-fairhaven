@@ -9,13 +9,26 @@ namespace TowerDefense
     public class Cell
     {
         public int g, h, f;
-        public int x, y;
+        protected bool valid = true;
 
         public Cell(Point position)
         {
-            x = position.X;
-            y = position.Y;
+            Position = position;
         }
+
+        public bool Valid { get { return valid; } }
+        public Point Position { get; set; }
+        public Point[] Adjacent { get { return new Point[] {
+            new Point(Position.X, Position.Y + 1),
+            new Point(Position.X + 1, Position.Y + 1),
+            new Point(Position.X + 1, Position.Y),
+            new Point(Position.X + 1, Position.Y - 1),
+            new Point(Position.X, Position.Y - 1),
+            new Point(Position.X - 1, Position.Y - 1),
+            new Point(Position.X - 1, Position.Y),
+            new Point(Position.X - 1, Position.Y + 1)
+        }; } }
+
     }
 
     public class CellComparer : Comparer<Cell>
