@@ -16,9 +16,9 @@ namespace TowerDefense
         private int m_width, m_height;
 
         //protected List<Cell> grid;
-        private byte[,] m_grid = null;
+        public byte[,] m_grid = null;
         public IntervalHeap<Cell> m_open;
-        protected List<Cell> closed;
+        public List<Cell> closed;
         
 
         public Grid(int width, int height)

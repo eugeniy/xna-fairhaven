@@ -121,5 +121,35 @@ namespace UnitTests
             Assert.AreEqual(c1, cell);
         }
 
+        [Test]
+        public void CheckInitialBoard()
+        {
+            Grid grid = new Grid(2, 2);
+            Assert.AreEqual(1, grid.m_grid[0,0]);
+            Assert.AreEqual(1, grid.m_grid[1, 1]);
+            Assert.AreEqual(0, grid.m_grid[2, 2]);
+            Assert.IsTrue(grid.m_open.IsEmpty);
+            Assert.AreEqual(0, grid.closed.Count);
+        }
+
+        [Test]
+        public void FindShortestPath()
+        {
+            Point start = new Point(0, 0);
+            Point zeroEnd = new Point(0, 0);
+            Point end = new Point(1, 1);
+            Grid grid = new Grid(2, 2);
+
+            Assert.IsNotNull(grid.FindPath(start, zeroEnd));
+            Assert.AreEqual(start, grid.FindPath(start, zeroEnd)[0].Position);
+            Assert.AreEqual(zeroEnd, grid.FindPath(start, zeroEnd)[grid.closed.Count - 1].Position);
+
+            grid = new Grid(2, 2);
+            Assert.IsNotNull(grid.FindPath(start, end));
+            Assert.AreEqual(start, grid.FindPath(start, end)[0].Position);
+            Assert.AreEqual(end, grid.FindPath(start, end)[grid.closed.Count - 1].Position);
+        }
+
+
     }
 }
