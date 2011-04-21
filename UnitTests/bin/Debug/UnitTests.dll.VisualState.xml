@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1002]D:\Projects\TowerDefense\UnitTests\bin\Debug\UnitTests.dll</TopNode>
+  <SelectedNode>[0-1002]D:\Projects\TowerDefense\UnitTests\bin\Debug\UnitTests.dll</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1002]D:\Projects\TowerDefense\UnitTests\bin\Debug\UnitTests.dll" Expanded="true" />
+    <Node UniqueName="[0-1003]UnitTests" Expanded="true" />
+    <Node UniqueName="[0-1000]UnitTests.GridTest" Expanded="true" />
+  </Nodes>
+</VisualState>

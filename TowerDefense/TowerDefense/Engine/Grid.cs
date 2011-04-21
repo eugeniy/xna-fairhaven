@@ -24,7 +24,7 @@ namespace TowerDefense
         /// <param name="start">Starting point</param>
         /// <param name="end">End point</param>
         /// <returns>A heuristic cost to move from start to end point</returns>
-        protected int EstimateCost(Point start, Point end)
+        public int EstimateCost(Point start, Point end)
         {
             return Math.Abs(end.X - start.X) + Math.Abs(end.Y - start.Y);
         }

@@ -125,8 +125,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TowerDefenseContent\TowerDefenseContent.contentproj">
-      <Name>TowerDefenseContent</Name>
+      <Name>TowerDefenseContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{B481E541-EC95-4173-A98D-B74F9101C5C8}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

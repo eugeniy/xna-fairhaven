@@ -1,0 +1,10 @@
+D:\Projects\TowerDefense\UnitTests\bin\Debug\UnitTests.dll
+D:\Projects\TowerDefense\UnitTests\bin\Debug\UnitTests.pdb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\nunit.framework.dll
+D:\Projects\TowerDefense\UnitTests\bin\Debug\TowerDefense.exe
+D:\Projects\TowerDefense\UnitTests\bin\Debug\C5.dll
+D:\Projects\TowerDefense\UnitTests\bin\Debug\TowerDefense.pdb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\nunit.framework.xml
+D:\Projects\TowerDefense\UnitTests\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\TowerDefense\UnitTests\obj\Debug\UnitTests.dll
+D:\Projects\TowerDefense\UnitTests\obj\Debug\UnitTests.pdb

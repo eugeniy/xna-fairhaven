@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="D:\Projects\TowerDefense\UnitTests\UnitTests.csproj" total="1" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2011-04-20" time="18:06:01">
+  <environment nunit-version="2.5.10.11092" clr-version="2.0.50727.5444" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Program Files (x86)\NUnit 2.5.10\bin\net-2.0" machine-name="KOTEAKO" user="eugeniy" user-domain="koteako" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Project" name="D:\Projects\TowerDefense\UnitTests\UnitTests.csproj" executed="True" result="Success" success="True" time="0.058" asserts="0">
+    <results>
+      <test-suite type="Assembly" name="D:\Projects\TowerDefense\UnitTests\bin\Debug\UnitTests.dll" executed="True" result="Success" success="True" time="0.053" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="UnitTests" executed="True" result="Success" success="True" time="0.052" asserts="0">
+            <results>
+              <test-suite type="TestFixture" name="GridTest" executed="True" result="Success" success="True" time="0.051" asserts="0">
+                <results>
+                  <test-case name="UnitTests.GridTest.CalculatingDistance" executed="True" result="Success" success="True" time="0.043" asserts="1" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
