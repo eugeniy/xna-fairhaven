@@ -51,6 +51,7 @@ namespace TowerDefense
             return Math.Abs(end.X - start.X) + Math.Abs(end.Y - start.Y);
         }
 
+        // FIXME: RESET EVERYTHING BETWEEN CALLS!!
         public List<Cell> FindPath(Point start, Point end)
         {
             // Set parent to a starting point and set its g, h, f values
@@ -78,10 +79,10 @@ namespace TowerDefense
                 }
 
                 // Open list is empty means we weren't able to find the path
-                if (m_open.IsEmpty)
-                {
-                    return null;
-                }
+                //if (m_open.IsEmpty)
+                //{
+                //    return null;
+                //}
 
                 // Walk through valid adjacent cells
                 foreach (Point p in parent.Adjacent)
@@ -146,6 +147,17 @@ namespace TowerDefense
 
 
 
+        public Array FindPathArray(Point start, Point end)
+        {
+            try
+            {
+                return FindPath(start, end).Select(n => n.Position).ToArray();
+            }
+            catch (System.ArgumentNullException e)
+            {
+                return null;
+            }
+        }
 
         public Cell FindCellInList(IEnumerable<Cell> list, Point target)
         {

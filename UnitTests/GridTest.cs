@@ -146,8 +146,43 @@ namespace UnitTests
 
             grid = new Grid(2, 2);
             Assert.IsNotNull(grid.FindPath(start, end));
+            //Assert.AreEqual(null, grid.FindPath(start, end));
             Assert.AreEqual(start, grid.FindPath(start, end)[0].Position);
             Assert.AreEqual(end, grid.FindPath(start, end)[grid.closed.Count - 1].Position);
+        }
+
+        [Test]
+        public void EverythingResetBetweenCalls()
+        { }
+
+        [Test]
+        public void FindShortestPathArray()
+        {
+            Point start = new Point(0, 0);
+            Point end = new Point(1, 1);
+            Grid grid = new Grid(2, 2);
+
+            var list = grid.FindPath(start, end);
+
+            grid = new Grid(2, 2); // TODO: Remove once reseting is working
+            var array = grid.FindPathArray(start, end);
+            var expected = new Point[] { start, end };
+
+            Assert.AreEqual(list.Count, array.Length);
+            Assert.AreEqual(expected, array);
+        }
+
+        [Test]
+        public void NoPathWithALargerGrid()
+        {
+            Point start = new Point(0, 0);
+            Point end = new Point(5, 5);
+            Grid grid = new Grid(10, 10);
+
+            for (int i = 0; i < 11; i++)
+                grid.m_grid[2, i] = 0;
+
+            Assert.AreEqual(null, grid.FindPathArray(start, end));
         }
 
 
