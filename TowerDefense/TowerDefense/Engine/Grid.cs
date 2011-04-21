@@ -8,20 +8,24 @@ using C5;
 
 namespace TowerDefense
 {
-    public class Grid
+    public unsafe class Grid
     {
-        private int capacity = 16;
+        private int m_capacity;
+        private int m_width, m_height;
+
         protected List<Cell> grid;
-        public IntervalHeap<Cell> open;
+        public IntervalHeap<Cell> m_open;
         protected List<Cell> closed;
         
 
         public Grid(int width, int height)
         {
-            capacity = width * height;
-            grid = new List<Cell>(capacity);
-            open = new IntervalHeap<Cell>(capacity, new CellComparer());
-            closed = new List<Cell>(capacity);
+            m_width = width;
+            m_height = height;
+            m_capacity = width * height;
+            grid = new List<Cell>(m_capacity);
+            m_open = new IntervalHeap<Cell>(m_capacity, new CellComparer());
+            closed = new List<Cell>(m_capacity);
         }
 
         /// <summary>
@@ -44,32 +48,68 @@ namespace TowerDefense
             parent.f = parent.g + parent.h;
 
             // Add parent to the open list, should be the only cell at this point
-            open.Add(parent);
+            m_open.Add(parent);
 
-            while (open.Count > 0)
+            while (m_open.Count > 0)
             {
                 // Find the cell with the lowest f value
-                var best = open.FindMin();
+                // Pop it off the open and assign the value to parent
+                parent = m_open.DeleteMin();
 
                 // If the best cell is the end, we're done
-                if (best.Position == end)
+                if (parent.Position == end)
                 {
                     return closed;
                 }
 
                 // Open list is empty means we weren't able to find the path
-                if (open.IsEmpty)
+                if (m_open.IsEmpty)
                 {
                     return null;
                 }
 
                 // Walk through valid adjacent cells
-                foreach (Point p in best.Adjacent)
+                foreach (Point p in parent.Adjacent)
                 {
+                    if (p.X >= 0 && p.Y >= 0 && p.X <= m_width && p.Y <= m_height)
+                    {
+                        //Cell child; // = new Cell(p);
+                        int g = parent.g + EstimateCost(parent.Position, p);
+                        //child.h = EstimateCost(parent.Position, p);
 
+                        Cell child = FindCellInList(m_open, p);
+
+                        if ( child != null )
+                        {
+                            if (g < child.g)
+                            {
+                                child.g = g;
+                                child.f = child.g + child.h;
+                            }
+                        }
+                        //else if (closed.Contains(child)) {
+                        //}
+                        else
+                        {
+                            m_open.Add(child);
+                        }
+                    }
                 }
             }
             return closed;
         }
+
+        private Cell FindCellInList(IEnumerable<Cell> list, Point target)
+        {
+            foreach (Cell c in list)
+            {
+                if (c.Position == target)
+                    return c;
+            }
+            return null;
+        }
+
+        public int Width { get { return m_width; } }
+        public int Height { get { return m_height; } }
     }
 }
