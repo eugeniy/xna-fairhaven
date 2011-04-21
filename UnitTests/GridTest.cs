@@ -48,6 +48,21 @@ namespace UnitTests
             Assert.AreEqual(x, grid.m_open.FindMax());
         }
 
+
+        [Test]
+        public void SetPoints()
+        {
+            Point point = new Point(5, 5);
+            Cell cell = new Cell(point);
+            cell.Position = point;
+            cell.ParentPosition = cell.Position;
+            Point newPoint = new Point(1, 1);
+            cell.Position = newPoint;
+
+            Assert.AreNotEqual(cell.ParentPosition, cell.Position);
+        }
+
+
         [Test]
         public void CheckAdjacent()
         {

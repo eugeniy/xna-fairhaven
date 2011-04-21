@@ -16,6 +16,7 @@ namespace TowerDefense
         }
 
         public Point Position { get; set; }
+        public Point ParentPosition { get; set; }
         public Point[] Adjacent { get { return new Point[] {
             new Point(Position.X, Position.Y + 1),
             new Point(Position.X + 1, Position.Y + 1),

@@ -10,10 +10,13 @@ namespace TowerDefense
 {
     public unsafe class Grid
     {
+        private bool found = false;
+
         private int m_capacity;
         private int m_width, m_height;
 
-        protected List<Cell> grid;
+        //protected List<Cell> grid;
+        private byte[,] m_grid = null;
         public IntervalHeap<Cell> m_open;
         protected List<Cell> closed;
         
@@ -23,7 +26,16 @@ namespace TowerDefense
             m_width = width;
             m_height = height;
             m_capacity = width * height;
-            grid = new List<Cell>(m_capacity);
+            //grid = new List<Cell>(m_capacity);
+
+
+            m_grid = new byte[1024, 1024];
+
+            for (int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
+                    m_grid[x, y] = 1;
+
+
             m_open = new IntervalHeap<Cell>(m_capacity, new CellComparer());
             closed = new List<Cell>(m_capacity);
         }
@@ -46,11 +58,12 @@ namespace TowerDefense
             parent.g = 0;
             parent.h = EstimateCost(start, end);
             parent.f = parent.g + parent.h;
+            parent.ParentPosition = start;
 
             // Add parent to the open list, should be the only cell at this point
             m_open.Add(parent);
 
-            while (m_open.Count > 0)
+            while ( ! m_open.IsEmpty)
             {
                 // Find the cell with the lowest f value
                 // Pop it off the open and assign the value to parent
@@ -59,7 +72,9 @@ namespace TowerDefense
                 // If the best cell is the end, we're done
                 if (parent.Position == end)
                 {
-                    return closed;
+                    closed.Add(parent);
+                    found = true;
+                    break;
                 }
 
                 // Open list is empty means we weren't able to find the path
@@ -73,31 +88,64 @@ namespace TowerDefense
                 {
                     if (p.X >= 0 && p.Y >= 0 && p.X <= m_width && p.Y <= m_height)
                     {
-                        //Cell child; // = new Cell(p);
-                        int g = parent.g + EstimateCost(parent.Position, p);
-                        //child.h = EstimateCost(parent.Position, p);
 
-                        Cell child = FindCellInList(m_open, p);
+                        int g = parent.g + m_grid[p.X, p.Y];
 
-                        if ( child != null )
+
+
+
+
+                        if (g == parent.g)
                         {
-                            if (g < child.g)
-                            {
-                                child.g = g;
-                                child.f = child.g + child.h;
-                            }
+                            //Unbrekeable
+                            continue;
                         }
-                        //else if (closed.Contains(child)) {
-                        //}
-                        else
-                        {
-                            m_open.Add(child);
-                        }
+
+                        Cell cellInOpen = FindCellInList(m_open, p);
+
+                        if (cellInOpen != null && cellInOpen.g <= g)
+                            continue;
+
+                        Cell cellInClosed = FindCellInList(closed, p);
+                        if (cellInClosed != null && cellInClosed.g <= g)
+                            continue;
+
+
+                        Cell child = new Cell(p);
+                        child.ParentPosition = new Point(parent.Position.X, parent.Position.Y);
+                        child.g = g;
+                        child.h = EstimateCost(child.Position, end);
+                        child.f = child.g + child.h;
+
+
+                        m_open.Add(child);
+
                     }
                 }
+                closed.Add(parent);
             }
-            return closed;
+
+            if (found)
+            {
+                Cell fNode = closed[closed.Count - 1];
+                for (int i = closed.Count - 1; i >= 0; i--)
+                {
+                    if (fNode.ParentPosition.X == closed[i].Position.X && fNode.ParentPosition.Y == closed[i].Position.Y || i == closed.Count - 1)
+                    {
+                        fNode = closed[i];
+                    }
+                    else
+                        closed.RemoveAt(i);
+                }
+
+                return closed;
+            }
+
+            return null;
         }
+
+
+
 
         private Cell FindCellInList(IEnumerable<Cell> list, Point target)
         {
