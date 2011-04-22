@@ -37,7 +37,18 @@ namespace TowerDefense
         {
             // TODO: Add your initialization logic here
 
-            map = new Grid(8, 4);
+            map = new Grid(8, 5);
+
+            // Generate a test map
+            for (int i = 1; i < 8; i++)
+                map[i, 0].Passable = false;
+
+            for (int i = 0; i < 7; i++)
+                map[i, 2].Passable = false;
+
+            for (int i = 4; i < 8; i++)
+                map[i, 4].Passable = false;
+
 
             base.Initialize();
         }
@@ -92,7 +103,7 @@ namespace TowerDefense
             // TODO: Add your drawing code here
 
             spriteBatch.Begin();
-            map.Draw(spriteBatch, new Vector2(0, 0));
+            map.Draw(spriteBatch, new Vector2(0, -10));
             spriteBatch.End();
 
             base.Draw(gameTime);

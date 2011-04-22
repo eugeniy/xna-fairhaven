@@ -13,23 +13,16 @@ namespace TowerDefense
         public Texture2D Texture { get; set; }
 
         private bool m_passable = true;
+        public enum Type { Open, Closed }
 
         public Cell(Point position)
         {
             Position = position;
         }
 
-        public Cell(int x, int y, Texture2D texture)
+        public void Draw(SpriteBatch spriteBatch, Dictionary<Enum, Texture2D> textures, Vector2 location)
         {
-            Position = new Point(x, y);
-            Texture = texture;
-        }
-
-
-
-        public void Draw(SpriteBatch spriteBatch, Vector2 location)
-        {
-            spriteBatch.Draw(Texture, location, Color.White);
+            spriteBatch.Draw(textures[m_passable ? Type.Open : Type.Closed], location, Color.White);
         }
 
         public int G { get; set; }

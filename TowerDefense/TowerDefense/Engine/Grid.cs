@@ -22,7 +22,7 @@ namespace TowerDefense
         public IntervalHeap<Cell> m_open;
         public List<Cell> m_closed;
 
-        public Texture2D m_cellTexture;
+        private Dictionary<Enum, Texture2D> m_cellTextures;
         
 
         public Grid(int width, int height)
@@ -43,15 +43,16 @@ namespace TowerDefense
 
         public void LoadContent(ContentManager Content)
         {
-            m_cellTexture = Content.Load<Texture2D>("Sprites/Grass Block");
+            m_cellTextures = new Dictionary<Enum, Texture2D>();
+            m_cellTextures[Cell.Type.Open] = Content.Load<Texture2D>("Sprites/Grass Block");
+            m_cellTextures[Cell.Type.Closed] = Content.Load<Texture2D>("Sprites/Stone Block Tall");
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 location)
         {
             foreach (Cell cell in m_grid)
             {
-                cell.Texture = m_cellTexture;
-                cell.Draw(spriteBatch, new Vector2(cell.Position.X * 100, cell.Position.Y * 80));
+                cell.Draw(spriteBatch, m_cellTextures, new Vector2(cell.Position.X * 100 + location.X, cell.Position.Y * 80 + location.Y));
             }
         }
 
@@ -189,6 +190,7 @@ namespace TowerDefense
         /// <returns></returns>
         public Cell this[int x, int y]
         {
+            // FIXME: Range check for x and y
             get { return m_grid[m_width * y + x]; }
             set { m_grid[m_width * y + x] = value; }
         }
