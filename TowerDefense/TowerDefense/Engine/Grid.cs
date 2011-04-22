@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 using C5;
 
@@ -18,6 +21,8 @@ namespace TowerDefense
         private List<Cell> m_grid;
         public IntervalHeap<Cell> m_open;
         public List<Cell> m_closed;
+
+        public Texture2D m_cellTexture;
         
 
         public Grid(int width, int height)
@@ -35,6 +40,20 @@ namespace TowerDefense
             m_closed = new List<Cell>(m_capacity);
         }
 
+
+        public void LoadContent(ContentManager Content)
+        {
+            m_cellTexture = Content.Load<Texture2D>("Sprites/Grass Block");
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 location)
+        {
+            foreach (Cell cell in m_grid)
+            {
+                cell.Texture = m_cellTexture;
+                cell.Draw(spriteBatch, new Vector2(cell.Position.X * 100, cell.Position.Y * 80));
+            }
+        }
 
         /// <summary>
         /// Calculate the Manhattan Distance

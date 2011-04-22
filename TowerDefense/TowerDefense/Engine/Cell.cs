@@ -29,9 +29,7 @@ namespace TowerDefense
 
         public void Draw(SpriteBatch spriteBatch, Vector2 location)
         {
-            spriteBatch.Begin();
-            spriteBatch.Draw(Texture, location, Microsoft.Xna.Framework.Color.White);
-            spriteBatch.End();
+            spriteBatch.Draw(Texture, location, Color.White);
         }
 
         public int G { get; set; }
