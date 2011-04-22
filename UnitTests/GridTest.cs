@@ -150,7 +150,7 @@ namespace UnitTests
             Grid grid = new Grid(2, 2);
             Assert.IsTrue(grid[0, 0].Passable);
             Assert.IsTrue(grid[1, 1].Passable);
-            Assert.AreEqual(4, grid.grid.Count);
+            Assert.AreEqual(4, grid.Count);
             try
             {
                 Cell cell = grid[2, 2];
@@ -159,7 +159,7 @@ namespace UnitTests
             catch (System.ArgumentOutOfRangeException) {}
 
             Assert.IsTrue(grid.m_open.IsEmpty);
-            Assert.AreEqual(0, grid.closed.Count);
+            Assert.AreEqual(0, grid.m_closed.Count);
         }
 
         [Test]
@@ -172,13 +172,13 @@ namespace UnitTests
 
             Assert.IsNotNull(grid.FindPath(start, zeroEnd));
             Assert.AreEqual(start, grid.FindPath(start, zeroEnd)[0].Position);
-            Assert.AreEqual(zeroEnd, grid.FindPath(start, zeroEnd)[grid.closed.Count - 1].Position);
+            Assert.AreEqual(zeroEnd, grid.FindPath(start, zeroEnd)[grid.m_closed.Count - 1].Position);
 
             grid = new Grid(2, 2);
             Assert.IsNotNull(grid.FindPath(start, end));
             //Assert.AreEqual(null, grid.FindPath(start, end));
             Assert.AreEqual(start, grid.FindPath(start, end)[0].Position);
-            Assert.AreEqual(end, grid.FindPath(start, end)[grid.closed.Count - 1].Position);
+            Assert.AreEqual(end, grid.FindPath(start, end)[grid.m_closed.Count - 1].Position);
         }
 
         [Test]

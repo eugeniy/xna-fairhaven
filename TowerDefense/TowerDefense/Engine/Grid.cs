@@ -15,10 +15,9 @@ namespace TowerDefense
         private int m_capacity;
         private int m_width, m_height;
 
-        public List<Cell> grid;
-
+        private List<Cell> m_grid;
         public IntervalHeap<Cell> m_open;
-        public List<Cell> closed;
+        public List<Cell> m_closed;
         
 
         public Grid(int width, int height)
@@ -27,13 +26,13 @@ namespace TowerDefense
             m_height = height;
             m_capacity = width * height;
 
-            grid = new List<Cell>(m_capacity);
+            m_grid = new List<Cell>(m_capacity);
             for (int y = 0; y < height; y++)
                 for (int x = 0; x < width; x++)
-                    grid.Add(new Cell(new Point(x, y)));
+                    m_grid.Add(new Cell(new Point(x, y)));
 
             m_open = new IntervalHeap<Cell>(m_capacity, new CellComparer());
-            closed = new List<Cell>(m_capacity);
+            m_closed = new List<Cell>(m_capacity);
         }
 
 
@@ -52,7 +51,7 @@ namespace TowerDefense
         public List<Cell> FindPath(Point start, Point end)
         {
             m_open = new IntervalHeap<Cell>(m_capacity, new CellComparer());
-            closed = new List<Cell>(m_capacity);
+            m_closed = new List<Cell>(m_capacity);
 
             // Set parent to a starting point and set its g, h, f values
             Cell parent = new Cell(start);
@@ -73,16 +72,10 @@ namespace TowerDefense
                 // If the best cell is the end, we're done
                 if (parent.Position == end)
                 {
-                    closed.Add(parent);
+                    m_closed.Add(parent);
                     found = true;
                     break;
                 }
-
-                // Open list is empty means we weren't able to find the path
-                //if (m_open.IsEmpty)
-                //{
-                //    return null;
-                //}
 
                 // Walk through valid adjacent cells
                 foreach (Point p in parent.Adjacent)
@@ -107,7 +100,7 @@ namespace TowerDefense
                         if (cellInOpen != null && cellInOpen.g <= g)
                             continue;
 
-                        Cell cellInClosed = FindCellInList(closed, p);
+                        Cell cellInClosed = FindCellInList(m_closed, p);
                         if (cellInClosed != null && cellInClosed.g <= g)
                             continue;
 
@@ -123,23 +116,23 @@ namespace TowerDefense
 
                     }
                 }
-                closed.Add(parent);
+                m_closed.Add(parent);
             }
 
             if (found)
             {
-                Cell fNode = closed[closed.Count - 1];
-                for (int i = closed.Count - 1; i >= 0; i--)
+                Cell fNode = m_closed[m_closed.Count - 1];
+                for (int i = m_closed.Count - 1; i >= 0; i--)
                 {
-                    if (fNode.ParentPosition.X == closed[i].Position.X && fNode.ParentPosition.Y == closed[i].Position.Y || i == closed.Count - 1)
+                    if (fNode.ParentPosition.X == m_closed[i].Position.X && fNode.ParentPosition.Y == m_closed[i].Position.Y || i == m_closed.Count - 1)
                     {
-                        fNode = closed[i];
+                        fNode = m_closed[i];
                     }
                     else
-                        closed.RemoveAt(i);
+                        m_closed.RemoveAt(i);
                 }
 
-                return closed;
+                return m_closed;
             }
 
             return null;
@@ -177,8 +170,8 @@ namespace TowerDefense
         /// <returns></returns>
         public Cell this[int x, int y]
         {
-            get { return grid[m_width * y + x]; }
-            set { grid[m_width * y + x] = value; }
+            get { return m_grid[m_width * y + x]; }
+            set { m_grid[m_width * y + x] = value; }
         }
 
         public Cell this[Point position]
@@ -195,5 +188,6 @@ namespace TowerDefense
 
         public int Width { get { return m_width; } }
         public int Height { get { return m_height; } }
+        public int Count { get { return m_grid.Count; } }
     }
 }
