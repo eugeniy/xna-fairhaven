@@ -148,12 +148,12 @@ namespace UnitTests
         public void CheckInitialBoard()
         {
             Grid grid = new Grid(2, 2);
-            Assert.IsTrue(grid.GetCell(0, 0).Passable);
-            Assert.IsTrue(grid.GetCell(1, 1).Passable);
+            Assert.IsTrue(grid[0, 0].Passable);
+            Assert.IsTrue(grid[1, 1].Passable);
             Assert.AreEqual(4, grid.grid.Count);
             try
             {
-                grid.GetCell(2, 2);
+                Cell cell = grid[2, 2];
                 Assert.Fail();
             }
             catch (System.ArgumentOutOfRangeException) {}
@@ -207,14 +207,14 @@ namespace UnitTests
             {
                 cell = new Cell(new Point(10, i));
                 cell.Passable = false;
-                grid.SetCell(10, i, cell);
+                grid[10, i] = cell;
             }
 
             for (int i = 59; i > 1; i--)
             {
                 cell = new Cell(new Point(30, i));
                 cell.Passable = false;
-                grid.SetCell(30, i, cell);
+                grid[30, i] = cell;
             }
 
             timer.Start();
@@ -255,7 +255,7 @@ namespace UnitTests
             {
                 cell = new Cell(new Point(2, i));
                 cell.Passable = false;
-                grid.SetCell(2, i, cell);
+                grid[2, i] = cell;
             }
 
             Assert.AreEqual(null, grid.FindPathArray(start, end));

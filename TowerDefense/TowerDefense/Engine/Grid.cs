@@ -90,7 +90,7 @@ namespace TowerDefense
                     if (p.X >= 0 && p.Y >= 0 && p.X < m_width && p.Y < m_height)
                     {
 
-                        int g = parent.g + GetCellCost(GetCell(p));
+                        int g = parent.g + GetCellCost(this[p]);
 
 
 
@@ -187,21 +187,6 @@ namespace TowerDefense
             set { this[position.X, position.Y] = value; }
         }
 
-
-        public Cell GetCell(Point position)
-        {
-            return GetCell(position.X, position.Y);
-        }
-
-        public Cell GetCell(int x, int y)
-        {
-            return grid[m_width * y + x];
-        }
-
-        public void SetCell(int x, int y, Cell value)
-        {
-            grid[m_width * y + x] = value;
-        }
 
         public int GetCellCost(Cell cell)
         {
