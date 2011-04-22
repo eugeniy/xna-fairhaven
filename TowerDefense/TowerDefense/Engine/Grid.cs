@@ -146,7 +146,7 @@ namespace TowerDefense
             {
                 return FindPath(start, end).Select(n => n.Position).ToArray();
             }
-            catch (System.ArgumentNullException e)
+            catch (System.ArgumentNullException)
             {
                 return null;
             }

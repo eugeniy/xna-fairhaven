@@ -15,6 +15,10 @@ namespace TowerDefense
             Position = position;
         }
 
+        public void Draw()
+        {
+        }
+
         public int G { get; set; }
         public int H { get; set; }
         public int F { get; set; }
