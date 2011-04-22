@@ -194,6 +194,31 @@ namespace UnitTests
 
 
         [Test]
+        public void CheckFlags()
+        {
+            Grid grid = new Grid(2, 2);
+
+            Assert.AreEqual(Cell.Type.Open, grid[0,0].Status);
+            Assert.AreEqual(Cell.Type.Open, grid[0, 0].Status);
+            Assert.IsTrue(grid[0, 0].Passable);
+
+            // Toggle on a path flag
+            grid[0, 0].Status |= Cell.Type.Path;
+            Assert.AreEqual(Cell.Type.Open | Cell.Type.Path, grid[0, 0].Status);
+            Assert.IsTrue(grid[0, 0].Status.HasFlag(Cell.Type.Open));
+            Assert.IsTrue(grid[0, 0].Status.HasFlag(Cell.Type.Path));
+            Assert.IsTrue(grid[0, 0].Passable);
+
+            // Toggle off an open flag
+            grid[0, 0].Status ^= Cell.Type.Open;
+            Assert.AreEqual(Cell.Type.Path, grid[0, 0].Status);
+            Assert.IsFalse(grid[0, 0].Status.HasFlag(Cell.Type.Open));
+            Assert.IsTrue(grid[0, 0].Status.HasFlag(Cell.Type.Path));
+            Assert.IsFalse(grid[0, 0].Passable);
+        }
+
+
+        [Test]
         [Category("Long")]
         public void EvaluatePerformance()
         {

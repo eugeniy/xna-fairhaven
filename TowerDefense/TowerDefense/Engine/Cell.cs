@@ -13,9 +13,9 @@ namespace TowerDefense
         public Texture2D Texture { get; set; }
         
 
-        private bool m_passable = true;
         private Type m_status = Type.Open;
 
+        [Flags]
         public enum Type { Closed = 1, Open = 2, Path = 4 }
 
         public Cell(Point position)
@@ -32,7 +32,7 @@ namespace TowerDefense
         public int H { get; set; }
         public int F { get; set; }
         public bool Passable {
-            get { return m_status == Type.Open || m_status == Type.Path; }
+            get { return m_status.HasFlag(Type.Open); }
         }
         public Type Status {
             get { return m_status; }
