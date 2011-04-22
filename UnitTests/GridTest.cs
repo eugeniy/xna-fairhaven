@@ -45,11 +45,11 @@ namespace UnitTests
             Assert.AreEqual(0, grid.m_open.Count);
 
             Cell x = new Cell(p);
-            x.f = 10;
+            x.F = 10;
             grid.m_open.Add(x);
 
             Cell y = new Cell(p);
-            y.f = 5;
+            y.F = 5;
             grid.m_open.Add(y);
 
             Assert.AreEqual(2, grid.m_open.Count);

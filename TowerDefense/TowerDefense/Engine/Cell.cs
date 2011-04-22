@@ -8,7 +8,6 @@ namespace TowerDefense
 {
     public class Cell
     {
-        public int g, h, f;
         private bool m_passable = true;
 
         public Cell(Point position)
@@ -16,6 +15,9 @@ namespace TowerDefense
             Position = position;
         }
 
+        public int G { get; set; }
+        public int H { get; set; }
+        public int F { get; set; }
         public bool Passable {
             get { return m_passable; }
             set { m_passable = value; }
@@ -39,7 +41,7 @@ namespace TowerDefense
     {
         public override int Compare(Cell x, Cell y)
         {
-            return x.f.CompareTo(y.f);
+            return x.F.CompareTo(y.F);
         }
     }
 }

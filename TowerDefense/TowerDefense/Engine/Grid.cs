@@ -55,9 +55,9 @@ namespace TowerDefense
 
             // Set parent to a starting point and set its g, h, f values
             Cell parent = new Cell(start);
-            parent.g = 0;
-            parent.h = EstimateCost(start, end);
-            parent.f = parent.g + parent.h;
+            parent.G = 0;
+            parent.H = EstimateCost(start, end);
+            parent.F = parent.G + parent.H;
             parent.ParentPosition = start;
 
             // Add parent to the open list, should be the only cell at this point
@@ -83,13 +83,13 @@ namespace TowerDefense
                     if (p.X >= 0 && p.Y >= 0 && p.X < m_width && p.Y < m_height)
                     {
 
-                        int g = parent.g + GetCellCost(this[p]);
+                        int g = parent.G + GetCellCost(this[p]);
 
 
 
 
 
-                        if (g == parent.g)
+                        if (g == parent.G)
                         {
                             //Unbrekeable
                             continue;
@@ -97,19 +97,19 @@ namespace TowerDefense
 
                         Cell cellInOpen = FindCellInList(m_open, p);
 
-                        if (cellInOpen != null && cellInOpen.g <= g)
+                        if (cellInOpen != null && cellInOpen.G <= g)
                             continue;
 
                         Cell cellInClosed = FindCellInList(m_closed, p);
-                        if (cellInClosed != null && cellInClosed.g <= g)
+                        if (cellInClosed != null && cellInClosed.G <= g)
                             continue;
 
 
                         Cell child = new Cell(p);
                         child.ParentPosition = new Point(parent.Position.X, parent.Position.Y);
-                        child.g = g;
-                        child.h = EstimateCost(child.Position, end);
-                        child.f = child.g + child.h;
+                        child.G = g;
+                        child.H = EstimateCost(child.Position, end);
+                        child.F = child.G + child.H;
 
 
                         m_open.Add(child);
