@@ -36,6 +36,7 @@ namespace TowerDefense
             closed = new List<Cell>(m_capacity);
         }
 
+
         /// <summary>
         /// Calculate the Manhattan Distance
         /// </summary>
@@ -167,6 +168,25 @@ namespace TowerDefense
             }
             return null;
         }
+
+        /// <summary>
+        /// Cell indexer
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public Cell this[int x, int y]
+        {
+            get { return grid[m_width * y + x]; }
+            set { grid[m_width * y + x] = value; }
+        }
+
+        public Cell this[Point position]
+        {
+            get { return this[position.X, position.Y]; }
+            set { this[position.X, position.Y] = value; }
+        }
+
 
         public Cell GetCell(Point position)
         {

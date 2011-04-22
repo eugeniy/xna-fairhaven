@@ -73,6 +73,20 @@ namespace UnitTests
 
 
         [Test]
+        public void CheckIndexers()
+        {
+            Point point = new Point(1, 1);
+            Grid grid = new Grid(2, 2);
+            Assert.IsInstanceOf<Cell>(grid[0, 0]);
+            Assert.IsInstanceOf<Cell>(grid[point]);
+
+            Assert.AreEqual(true, grid[point].Passable);
+            grid[point].Passable = false;
+            Assert.AreEqual(false, grid[point].Passable);
+        }
+
+
+        [Test]
         public void CheckAdjacent()
         {
             Point zero = new Point(0, 0);
@@ -136,6 +150,7 @@ namespace UnitTests
             Grid grid = new Grid(2, 2);
             Assert.IsTrue(grid.GetCell(0, 0).Passable);
             Assert.IsTrue(grid.GetCell(1, 1).Passable);
+            Assert.AreEqual(4, grid.grid.Count);
             try
             {
                 grid.GetCell(2, 2);
