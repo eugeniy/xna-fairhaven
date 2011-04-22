@@ -40,18 +40,27 @@ namespace TowerDefense
             map = new Grid(8, 5);
 
             // Generate a test map
-            for (int i = 1; i < 8; i++)
-                map[i, 0].Status = Cell.Type.Closed;
+            //for (int i = 1; i < 8; i++)
+            //    map[i, 0].Status = Cell.Type.Closed;
 
-            for (int i = 0; i < 7; i++)
-                map[i, 2].Status = Cell.Type.Closed;
+            //for (int i = 0; i < 7; i++)
+            //    map[i, 2].Status = Cell.Type.Closed;
 
-            for (int i = 4; i < 8; i++)
-                map[i, 4].Status = Cell.Type.Closed;
+            //for (int i = 4; i < 8; i++)
+            //    map[i, 4].Status = Cell.Type.Closed;
 
             // Calculate shortest path
-            map.Path = map.FindPath(new Point(0, 0), new Point(7, 4));
+            map.Path = map.FindPath(new Point(0, 0), new Point(7, 0));
 
+            //map.Path[0].Status |= Cell.Type.Path;
+                
+
+            // TODO: Do something when map.Path is null
+            // Toggle path flag for cells on the path
+            //foreach (Cell checkPoint in map.Path)
+            //{
+            //    checkPoint.Status |= Cell.Type.Path;
+            //}
 
             base.Initialize();
         }

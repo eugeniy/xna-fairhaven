@@ -16,7 +16,10 @@ namespace TowerDefense
         private Type m_status = Type.Open;
 
         [Flags]
-        public enum Type { Closed = 1, Open = 2, Path = 4 }
+        public enum Type {
+            Closed = 1, Open = 2, Path = 4,
+            OpenPath = Open | Path
+        }
 
         public Cell(Point position)
         {
@@ -25,7 +28,7 @@ namespace TowerDefense
 
         public void Draw(SpriteBatch spriteBatch, Dictionary<Enum, Texture2D> textures, Vector2 location)
         {
-            spriteBatch.Draw(textures[Status], location, Color.White);
+            spriteBatch.Draw(textures[Status], location, m_status.HasFlag(Type.Path) ? Color.Red : Color.White);
         }
 
         public int G { get; set; }
