@@ -19,6 +19,8 @@ namespace TowerDefense
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private Cell cell;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -48,6 +50,8 @@ namespace TowerDefense
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            Texture2D grass = Content.Load<Texture2D>("Sprites/Grass Block");
+            cell = new Cell(1, 1, grass);
         }
 
         /// <summary>
@@ -84,6 +88,7 @@ namespace TowerDefense
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            cell.Draw(spriteBatch, new Vector2(cell.Position.X * 10, cell.Position.Y * 10));
 
             base.Draw(gameTime);
         }

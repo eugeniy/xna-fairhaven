@@ -4,19 +4,40 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+
 namespace TowerDefense
 {
     public class Cell
     {
+        public Texture2D Texture { get; set; }
+
         private bool m_passable = true;
 
-        public Cell(Point position)
+        public Cell(System.Drawing.Point position)
         {
             Position = position;
         }
 
-        public void Draw()
+        public Cell(int x, int y, Texture2D texture)
         {
+            Position = new System.Drawing.Point(x, y);
+            Texture = texture;
+        }
+
+
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 location)
+        {
+            spriteBatch.Begin();
+            spriteBatch.Draw(Texture, location, Microsoft.Xna.Framework.Color.White);
+            spriteBatch.End();
         }
 
         public int G { get; set; }
@@ -26,17 +47,17 @@ namespace TowerDefense
             get { return m_passable; }
             set { m_passable = value; }
         }
-        public Point Position { get; set; }
-        public Point ParentPosition { get; set; }
-        public Point[] Adjacent { get { return new Point[] {
-            new Point(Position.X, Position.Y + 1),
-            new Point(Position.X + 1, Position.Y + 1),
-            new Point(Position.X + 1, Position.Y),
-            new Point(Position.X + 1, Position.Y - 1),
-            new Point(Position.X, Position.Y - 1),
-            new Point(Position.X - 1, Position.Y - 1),
-            new Point(Position.X - 1, Position.Y),
-            new Point(Position.X - 1, Position.Y + 1)
+        public System.Drawing.Point Position { get; set; }
+        public System.Drawing.Point ParentPosition { get; set; }
+        public System.Drawing.Point[] Adjacent { get { return new System.Drawing.Point[] {
+            new System.Drawing.Point(Position.X, Position.Y + 1),
+            new System.Drawing.Point(Position.X + 1, Position.Y + 1),
+            new System.Drawing.Point(Position.X + 1, Position.Y),
+            new System.Drawing.Point(Position.X + 1, Position.Y - 1),
+            new System.Drawing.Point(Position.X, Position.Y - 1),
+            new System.Drawing.Point(Position.X - 1, Position.Y - 1),
+            new System.Drawing.Point(Position.X - 1, Position.Y),
+            new System.Drawing.Point(Position.X - 1, Position.Y + 1)
         }; } }
 
     }

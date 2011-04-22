@@ -1,0 +1,40 @@
+Content\Sprites\Brown Block.xnb
+Content\Sprites\Character Boy.xnb
+Content\Sprites\Character Cat Girl.xnb
+Content\Sprites\Character Horn Girl.xnb
+Content\Sprites\Character Pink Girl.xnb
+Content\Sprites\Character Princess Girl.xnb
+Content\Sprites\Chest Closed.xnb
+Content\Sprites\Chest Lid.xnb
+Content\Sprites\Chest Open.xnb
+Content\Sprites\Dirt Block.xnb
+Content\Sprites\Enemy Bug.xnb
+Content\Sprites\Gem Blue.xnb
+Content\Sprites\Gem Green.xnb
+Content\Sprites\Gem Orange.xnb
+Content\Sprites\Heart.xnb
+Content\Sprites\Key.xnb
+Content\Sprites\Plain Block.xnb
+Content\Sprites\Rock.xnb
+Content\Sprites\Selector.xnb
+Content\Sprites\Shadow East.xnb
+Content\Sprites\Shadow North East.xnb
+Content\Sprites\Shadow North West.xnb
+Content\Sprites\Shadow North.xnb
+Content\Sprites\Shadow Side West.xnb
+Content\Sprites\Shadow South East.xnb
+Content\Sprites\Shadow South West.xnb
+Content\Sprites\Shadow South.xnb
+Content\Sprites\Shadow West.xnb
+Content\Sprites\SpeechBubble.xnb
+Content\Sprites\Star.xnb
+Content\Sprites\Stone Block Tall.xnb
+Content\Sprites\Stone Block.xnb
+Content\Sprites\Tree Short.xnb
+Content\Sprites\Tree Tall.xnb
+Content\Sprites\Tree Ugly.xnb
+Content\Sprites\Wall Block Tall.xnb
+Content\Sprites\Wall Block.xnb
+Content\Sprites\Water Block.xnb
+Content\Sprites\Wood Block.xnb
+Content\Sprites\Grass Block.xnb

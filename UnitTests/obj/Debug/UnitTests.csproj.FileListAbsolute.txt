@@ -8,3 +8,43 @@ D:\Projects\TowerDefense\UnitTests\bin\Debug\nunit.framework.xml
 D:\Projects\TowerDefense\UnitTests\obj\Debug\ResolveAssemblyReference.cache
 D:\Projects\TowerDefense\UnitTests\obj\Debug\UnitTests.dll
 D:\Projects\TowerDefense\UnitTests\obj\Debug\UnitTests.pdb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Brown Block.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Character Boy.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Character Cat Girl.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Character Horn Girl.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Character Pink Girl.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Character Princess Girl.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Chest Closed.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Chest Lid.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Chest Open.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Dirt Block.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Enemy Bug.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Gem Blue.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Gem Green.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Gem Orange.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Heart.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Key.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Plain Block.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Rock.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Selector.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Shadow East.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Shadow North East.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Shadow North West.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Shadow North.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Shadow Side West.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Shadow South East.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Shadow South West.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Shadow South.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Shadow West.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\SpeechBubble.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Star.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Stone Block Tall.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Stone Block.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Tree Short.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Tree Tall.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Tree Ugly.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Wall Block Tall.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Wall Block.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Water Block.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Wood Block.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Grass Block.xnb
