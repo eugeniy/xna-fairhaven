@@ -153,7 +153,14 @@ namespace UnitTests
 
         [Test]
         public void EverythingResetBetweenCalls()
-        { }
+        {
+            Point start = new Point(0, 0);
+            Point end = new Point(5, 5);
+            Grid grid = new Grid(10, 10);
+
+            Assert.AreEqual(6, grid.FindPath(start, end).Count);
+            Assert.AreEqual(6, grid.FindPath(start, end).Count);
+        }
 
         [Test]
         public void FindShortestPathArray()

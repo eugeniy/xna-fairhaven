@@ -51,9 +51,12 @@ namespace TowerDefense
             return Math.Abs(end.X - start.X) + Math.Abs(end.Y - start.Y);
         }
 
-        // FIXME: RESET EVERYTHING BETWEEN CALLS!!
+
         public List<Cell> FindPath(Point start, Point end)
         {
+            m_open = new IntervalHeap<Cell>(m_capacity, new CellComparer());
+            closed = new List<Cell>(m_capacity);
+
             // Set parent to a starting point and set its g, h, f values
             Cell parent = new Cell(start);
             parent.g = 0;
