@@ -134,9 +134,15 @@ namespace UnitTests
         public void CheckInitialBoard()
         {
             Grid grid = new Grid(2, 2);
-            Assert.AreEqual(1, grid.m_grid[0,0]);
-            Assert.AreEqual(1, grid.m_grid[1, 1]);
-            Assert.AreEqual(0, grid.m_grid[2, 2]);
+            Assert.IsTrue(grid.GetCell(0, 0).Passable);
+            Assert.IsTrue(grid.GetCell(1, 1).Passable);
+            try
+            {
+                grid.GetCell(2, 2);
+                Assert.Fail();
+            }
+            catch (System.ArgumentOutOfRangeException) {}
+
             Assert.IsTrue(grid.m_open.IsEmpty);
             Assert.AreEqual(0, grid.closed.Count);
         }
@@ -176,19 +182,28 @@ namespace UnitTests
         [Category("Long")]
         public void EvaluatePerformance()
         {
+            Cell cell;
             Point start = new Point(0, 0);
             Point end = new Point(50, 50);
             Grid grid = new Grid(60, 60);
 
             // Create a relatively complex map
             for (int i = 0; i < 40; i++)
-                grid.m_grid[10, i] = 0;
+            {
+                cell = new Cell(new Point(10, i));
+                cell.Passable = false;
+                grid.SetCell(10, i, cell);
+            }
 
             for (int i = 59; i > 1; i--)
-                grid.m_grid[30, i] = 0;
+            {
+                cell = new Cell(new Point(30, i));
+                cell.Passable = false;
+                grid.SetCell(30, i, cell);
+            }
 
             timer.Start();
-            grid.FindPathArray(start, end);
+            grid.FindPath(start, end);
             timer.Stop();
 
             Assert.That(timer.ElapsedMilliseconds, Is.LessThan(900));
@@ -216,12 +231,17 @@ namespace UnitTests
         [Test]
         public void NoPathWithALargerGrid()
         {
+            Cell cell;
             Point start = new Point(0, 0);
             Point end = new Point(5, 5);
             Grid grid = new Grid(10, 10);
 
-            for (int i = 0; i < 11; i++)
-                grid.m_grid[2, i] = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                cell = new Cell(new Point(2, i));
+                cell.Passable = false;
+                grid.SetCell(2, i, cell);
+            }
 
             Assert.AreEqual(null, grid.FindPathArray(start, end));
         }

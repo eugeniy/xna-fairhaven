@@ -9,12 +9,17 @@ namespace TowerDefense
     public class Cell
     {
         public int g, h, f;
+        private bool m_passable = true;
 
         public Cell(Point position)
         {
             Position = position;
         }
 
+        public bool Passable {
+            get { return m_passable; }
+            set { m_passable = value; }
+        }
         public Point Position { get; set; }
         public Point ParentPosition { get; set; }
         public Point[] Adjacent { get { return new Point[] {

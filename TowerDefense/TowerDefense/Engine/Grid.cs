@@ -15,8 +15,8 @@ namespace TowerDefense
         private int m_capacity;
         private int m_width, m_height;
 
-        //protected List<Cell> grid;
-        public byte[,] m_grid = null;
+        public List<Cell> grid;
+
         public IntervalHeap<Cell> m_open;
         public List<Cell> closed;
         
@@ -26,15 +26,11 @@ namespace TowerDefense
             m_width = width;
             m_height = height;
             m_capacity = width * height;
-            //grid = new List<Cell>(m_capacity);
 
-
-            m_grid = new byte[1024, 1024];
-
+            grid = new List<Cell>(m_capacity);
             for (int y = 0; y < height; y++)
                 for (int x = 0; x < width; x++)
-                    m_grid[x, y] = 1;
-
+                    grid.Add(new Cell(new Point(x, y)));
 
             m_open = new IntervalHeap<Cell>(m_capacity, new CellComparer());
             closed = new List<Cell>(m_capacity);
@@ -90,10 +86,10 @@ namespace TowerDefense
                 // Walk through valid adjacent cells
                 foreach (Point p in parent.Adjacent)
                 {
-                    if (p.X >= 0 && p.Y >= 0 && p.X <= m_width && p.Y <= m_height)
+                    if (p.X >= 0 && p.Y >= 0 && p.X < m_width && p.Y < m_height)
                     {
 
-                        int g = parent.g + m_grid[p.X, p.Y];
+                        int g = parent.g + GetCellCost(GetCell(p));
 
 
 
@@ -170,6 +166,26 @@ namespace TowerDefense
                     return c;
             }
             return null;
+        }
+
+        public Cell GetCell(Point position)
+        {
+            return GetCell(position.X, position.Y);
+        }
+
+        public Cell GetCell(int x, int y)
+        {
+            return grid[m_width * y + x];
+        }
+
+        public void SetCell(int x, int y, Cell value)
+        {
+            grid[m_width * y + x] = value;
+        }
+
+        public int GetCellCost(Cell cell)
+        {
+            return cell.Passable ? 1 : 0;
         }
 
         public int Width { get { return m_width; } }
