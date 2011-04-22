@@ -246,7 +246,7 @@ namespace UnitTests
             grid.FindPath(start, end);
             timer.Stop();
 
-            Assert.That(timer.ElapsedMilliseconds, Is.LessThan(900));
+            Assert.That(timer.ElapsedMilliseconds, Is.LessThan(800));
 
         }
 
@@ -284,6 +284,25 @@ namespace UnitTests
             }
 
             Assert.AreEqual(null, grid.FindPathArray(start, end));
+        }
+
+
+        [Test]
+        public void FoundPathCellsReferenceCellsInGrid()
+        {
+            
+
+            Point start = new Point(0, 0);
+            Point end = new Point(1, 1);
+            Grid grid = new Grid(2, 2);
+
+            Cell cellOne = new Cell(start);
+            Cell cellTwo = cellOne;
+            Assert.AreEqual(cellOne, cellTwo);
+            
+            Assert.AreEqual(grid[0, 0].Position, grid.FindPath(start, end)[0].Position);
+            Assert.IsTrue(grid[0, 0].Equals(grid.FindPath(start, end)[0]));
+            Assert.AreEqual(grid[0,0], grid.FindPath(start, end)[0]);
         }
 
 

@@ -1,17 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="D:\Projects\TowerDefense\UnitTests\UnitTests.csproj" total="1" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2011-04-22" time="16:09:20">
+<test-results name="D:\Projects\TowerDefense\UnitTests\UnitTests.csproj" total="1" errors="0" failures="1" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2011-04-22" time="16:51:58">
   <environment nunit-version="2.5.10.11092" clr-version="2.0.50727.5444" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Program Files (x86)\NUnit 2.5.10\bin\net-2.0" machine-name="KOTEAKO" user="eugeniy" user-domain="koteako" />
   <culture-info current-culture="en-US" current-uiculture="en-US" />
-  <test-suite type="Project" name="D:\Projects\TowerDefense\UnitTests\UnitTests.csproj" executed="True" result="Success" success="True" time="0.150" asserts="0">
+  <test-suite type="Project" name="D:\Projects\TowerDefense\UnitTests\UnitTests.csproj" executed="True" result="Failure" success="False" time="0.760" asserts="0">
     <results>
-      <test-suite type="Assembly" name="D:\Projects\TowerDefense\UnitTests\bin\Debug\UnitTests.dll" executed="True" result="Success" success="True" time="0.144" asserts="0">
+      <test-suite type="Assembly" name="D:\Projects\TowerDefense\UnitTests\bin\Debug\UnitTests.dll" executed="True" result="Failure" success="False" time="0.759" asserts="0">
         <results>
-          <test-suite type="Namespace" name="UnitTests" executed="True" result="Success" success="True" time="0.144" asserts="0">
+          <test-suite type="Namespace" name="UnitTests" executed="True" result="Failure" success="False" time="0.759" asserts="0">
             <results>
-              <test-suite type="TestFixture" name="GridTest" executed="True" result="Success" success="True" time="0.143" asserts="0">
+              <test-suite type="TestFixture" name="GridTest" executed="True" result="Failure" success="False" time="0.758" asserts="0">
                 <results>
-                  <test-case name="UnitTests.GridTest.CheckFlags" executed="True" result="Success" success="True" time="0.135" asserts="11" />
+                  <test-case name="UnitTests.GridTest.EvaluatePerformance" executed="True" result="Failure" success="False" time="0.755" asserts="1">
+                    <categories>
+                      <category name="Long" />
+                    </categories>
+                    <failure>
+                      <message><![CDATA[  Expected: less than 600
+  But was:  754
+]]></message>
+                      <stack-trace><![CDATA[at UnitTests.GridTest.EvaluatePerformance() in D:\Projects\TowerDefense\UnitTests\GridTest.cs:line 249
+]]></stack-trace>
+                    </failure>
+                  </test-case>
                 </results>
               </test-suite>
             </results>

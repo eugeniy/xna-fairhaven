@@ -83,7 +83,8 @@ namespace TowerDefense
             m_closed = new List<Cell>(m_capacity);
 
             // Set parent to a starting point and set its g, h, f values
-            Cell parent = new Cell(start);
+            //Cell parent = new Cell(start);
+            Cell parent = this[start.X, start.Y];
             parent.G = 0;
             parent.H = EstimateCost(start, end);
             parent.F = parent.G + parent.H;
@@ -120,7 +121,6 @@ namespace TowerDefense
 
                         if (g == parent.G)
                         {
-                            //Unbrekeable
                             continue;
                         }
 
@@ -213,7 +213,7 @@ namespace TowerDefense
 
         public int GetCellCost(Cell cell)
         {
-            return cell.Status == Cell.Type.Open ? 1 : 0;
+            return cell.Status.HasFlag(Cell.Type.Open) ? 1 : 0;
         }
 
         public int Width { get { return m_width; } }
