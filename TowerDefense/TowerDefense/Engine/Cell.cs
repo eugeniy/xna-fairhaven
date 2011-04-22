@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Drawing;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace TowerDefense
 {
@@ -20,14 +14,14 @@ namespace TowerDefense
 
         private bool m_passable = true;
 
-        public Cell(System.Drawing.Point position)
+        public Cell(Point position)
         {
             Position = position;
         }
 
         public Cell(int x, int y, Texture2D texture)
         {
-            Position = new System.Drawing.Point(x, y);
+            Position = new Point(x, y);
             Texture = texture;
         }
 
@@ -47,17 +41,17 @@ namespace TowerDefense
             get { return m_passable; }
             set { m_passable = value; }
         }
-        public System.Drawing.Point Position { get; set; }
-        public System.Drawing.Point ParentPosition { get; set; }
-        public System.Drawing.Point[] Adjacent { get { return new System.Drawing.Point[] {
-            new System.Drawing.Point(Position.X, Position.Y + 1),
-            new System.Drawing.Point(Position.X + 1, Position.Y + 1),
-            new System.Drawing.Point(Position.X + 1, Position.Y),
-            new System.Drawing.Point(Position.X + 1, Position.Y - 1),
-            new System.Drawing.Point(Position.X, Position.Y - 1),
-            new System.Drawing.Point(Position.X - 1, Position.Y - 1),
-            new System.Drawing.Point(Position.X - 1, Position.Y),
-            new System.Drawing.Point(Position.X - 1, Position.Y + 1)
+        public Point Position { get; set; }
+        public Point ParentPosition { get; set; }
+        public Point[] Adjacent { get { return new Point[] {
+            new Point(Position.X, Position.Y + 1),
+            new Point(Position.X + 1, Position.Y + 1),
+            new Point(Position.X + 1, Position.Y),
+            new Point(Position.X + 1, Position.Y - 1),
+            new Point(Position.X, Position.Y - 1),
+            new Point(Position.X - 1, Position.Y - 1),
+            new Point(Position.X - 1, Position.Y),
+            new Point(Position.X - 1, Position.Y + 1)
         }; } }
 
     }
