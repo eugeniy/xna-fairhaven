@@ -80,9 +80,9 @@ namespace UnitTests
             Assert.IsInstanceOf<Cell>(grid[0, 0]);
             Assert.IsInstanceOf<Cell>(grid[point]);
 
-            Assert.AreEqual(true, grid[point].Passable);
-            grid[point].Passable = false;
-            Assert.AreEqual(false, grid[point].Passable);
+            Assert.AreEqual(Cell.Type.Open, grid[point].Status);
+            grid[point].Status = Cell.Type.Closed;
+            Assert.AreEqual(Cell.Type.Closed, grid[point].Status);
         }
 
 
@@ -206,14 +206,14 @@ namespace UnitTests
             for (int i = 0; i < 40; i++)
             {
                 cell = new Cell(new Point(10, i));
-                cell.Passable = false;
+                cell.Status = Cell.Type.Closed;
                 grid[10, i] = cell;
             }
 
             for (int i = 59; i > 1; i--)
             {
                 cell = new Cell(new Point(30, i));
-                cell.Passable = false;
+                cell.Status = Cell.Type.Closed;
                 grid[30, i] = cell;
             }
 
@@ -254,7 +254,7 @@ namespace UnitTests
             for (int i = 0; i < 10; i++)
             {
                 cell = new Cell(new Point(2, i));
-                cell.Passable = false;
+                cell.Status = Cell.Type.Closed;
                 grid[2, i] = cell;
             }
 

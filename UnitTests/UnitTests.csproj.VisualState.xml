@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
   <TopNode>[0-1000]D:\Projects\TowerDefense\UnitTests\UnitTests.csproj</TopNode>
-  <SelectedNode>[0-1001]UnitTests.GridTest</SelectedNode>
+  <SelectedNode>[0-1002]UnitTests.GridTest.CalculatingDistance</SelectedNode>
   <SelectedCategories>Long</SelectedCategories>
   <ExcludeCategories>true</ExcludeCategories>
   <Nodes>

@@ -23,6 +23,9 @@ namespace TowerDefense
         public List<Cell> m_closed;
 
         private Dictionary<Enum, Texture2D> m_cellTextures;
+
+
+        public List<Cell> Path { get; set; }
         
 
         public Grid(int width, int height)
@@ -46,6 +49,11 @@ namespace TowerDefense
             m_cellTextures = new Dictionary<Enum, Texture2D>();
             m_cellTextures[Cell.Type.Open] = Content.Load<Texture2D>("Sprites/Grass Block");
             m_cellTextures[Cell.Type.Closed] = Content.Load<Texture2D>("Sprites/Stone Block Tall");
+        }
+
+        public void Update()
+        {
+
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 location)
@@ -204,7 +212,7 @@ namespace TowerDefense
 
         public int GetCellCost(Cell cell)
         {
-            return cell.Passable ? 1 : 0;
+            return cell.Status == Cell.Type.Open ? 1 : 0;
         }
 
         public int Width { get { return m_width; } }

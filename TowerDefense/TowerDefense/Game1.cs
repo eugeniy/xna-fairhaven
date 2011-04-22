@@ -41,13 +41,16 @@ namespace TowerDefense
 
             // Generate a test map
             for (int i = 1; i < 8; i++)
-                map[i, 0].Passable = false;
+                map[i, 0].Status = Cell.Type.Closed;
 
             for (int i = 0; i < 7; i++)
-                map[i, 2].Passable = false;
+                map[i, 2].Status = Cell.Type.Closed;
 
             for (int i = 4; i < 8; i++)
-                map[i, 4].Passable = false;
+                map[i, 4].Status = Cell.Type.Closed;
+
+            // Calculate shortest path
+            map.Path = map.FindPath(new Point(0, 0), new Point(7, 4));
 
 
             base.Initialize();

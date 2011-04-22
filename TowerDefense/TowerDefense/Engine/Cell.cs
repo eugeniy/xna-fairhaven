@@ -11,9 +11,12 @@ namespace TowerDefense
     public class Cell
     {
         public Texture2D Texture { get; set; }
+        
 
         private bool m_passable = true;
-        public enum Type { Open, Closed }
+        private Type m_status = Type.Open;
+
+        public enum Type { Closed = 1, Open = 2, Path = 4 }
 
         public Cell(Point position)
         {
@@ -22,17 +25,21 @@ namespace TowerDefense
 
         public void Draw(SpriteBatch spriteBatch, Dictionary<Enum, Texture2D> textures, Vector2 location)
         {
-            spriteBatch.Draw(textures[m_passable ? Type.Open : Type.Closed], location, Color.White);
+            spriteBatch.Draw(textures[Status], location, Color.White);
         }
 
         public int G { get; set; }
         public int H { get; set; }
         public int F { get; set; }
         public bool Passable {
-            get { return m_passable; }
-            set { m_passable = value; }
+            get { return m_status == Type.Open || m_status == Type.Path; }
+        }
+        public Type Status {
+            get { return m_status; }
+            set { m_status = value; }
         }
         public Point Position { get; set; }
+
         public Point ParentPosition { get; set; }
         public Point[] Adjacent { get { return new Point[] {
             new Point(Position.X, Position.Y + 1),
