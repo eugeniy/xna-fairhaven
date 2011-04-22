@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Diagnostics;
 using NUnit.Framework;
 
 using TowerDefense;
@@ -8,8 +9,16 @@ using C5;
 namespace UnitTests
 {
     [TestFixture]
-    class GridTest
+    public class GridTest
     {
+        Stopwatch timer;
+
+        [SetUp]
+        public void SetUp()
+        {
+            timer = new Stopwatch();
+        }
+
         [Test]
         public void CalculatingDistance()
         {
@@ -162,6 +171,32 @@ namespace UnitTests
             Assert.AreEqual(6, grid.FindPath(start, end).Count);
         }
 
+
+        [Test]
+        [Category("Long")]
+        public void EvaluatePerformance()
+        {
+            Point start = new Point(0, 0);
+            Point end = new Point(50, 50);
+            Grid grid = new Grid(60, 60);
+
+            // Create a relatively complex map
+            for (int i = 0; i < 40; i++)
+                grid.m_grid[10, i] = 0;
+
+            for (int i = 59; i > 1; i--)
+                grid.m_grid[30, i] = 0;
+
+            timer.Start();
+            grid.FindPathArray(start, end);
+            timer.Stop();
+
+            Assert.That(timer.ElapsedMilliseconds, Is.LessThan(900));
+
+        }
+
+
+
         [Test]
         public void FindShortestPathArray()
         {
@@ -171,7 +206,6 @@ namespace UnitTests
 
             var list = grid.FindPath(start, end);
 
-            grid = new Grid(2, 2); // TODO: Remove once reseting is working
             var array = grid.FindPathArray(start, end);
             var expected = new Point[] { start, end };
 
