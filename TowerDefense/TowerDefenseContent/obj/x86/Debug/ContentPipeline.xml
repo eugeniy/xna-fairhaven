@@ -368,10 +368,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Projects\TowerDefense\TowerDefense\TowerDefense\bin\x86\Debug\Content\Models\Cube.xnb</Output>
-      <Time>2011-04-23T11:23:24.8743865-07:00</Time>
+      <Time>2011-04-23T13:27:11.9991938-07:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Cube_0.xml</Key>
-        <Value>2011-04-23T11:35:07.387568-07:00</Value>
+        <Value>2011-04-23T13:51:06.8682636-07:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -379,7 +379,7 @@
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\Cube_0.xml</Output>
-      <Time>2011-04-23T11:23:24.8743865-07:00</Time>
+      <Time>2011-04-23T13:27:11.9991938-07:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

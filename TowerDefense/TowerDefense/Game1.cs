@@ -25,6 +25,8 @@ namespace TowerDefense
         private Matrix view;
         private Matrix projection;
 
+        float cameraRotation = 180;
+
 
         public Game1()
         {
@@ -42,7 +44,7 @@ namespace TowerDefense
         {
             // TODO: Add your initialization logic here
 
-            map = new Grid(2, 2);
+            map = new Grid(2, 1);
 
             //map.Randomize();
             
@@ -55,8 +57,8 @@ namespace TowerDefense
             //        map.Path[i].Status |= Cell.Type.Path;
 
             world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
-            view = Matrix.CreateLookAt(new Vector3(0, 0, 10), new Vector3(0, 0, 0), Vector3.UnitY);
-            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, GraphicsDevice.Viewport.AspectRatio, 0.1f, 100f);
+            
+            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, GraphicsDevice.Viewport.AspectRatio, 0.01f, 1000);
 
             base.Initialize();
         }
@@ -98,6 +100,12 @@ namespace TowerDefense
                 this.Exit();
 
             // TODO: Add your update logic here
+
+
+            cameraRotation += (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.05f;
+            view = Matrix.CreateRotationY(MathHelper.ToRadians(cameraRotation)) * 
+                Matrix.CreateLookAt(new Vector3(0, 0, 10), Vector3.Zero, Vector3.Up);
+
 
             base.Update(gameTime);
         }
