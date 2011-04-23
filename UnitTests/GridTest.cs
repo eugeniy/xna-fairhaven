@@ -315,16 +315,22 @@ namespace UnitTests
         [Test]
         public void TestReversePath()
         {
+            Cell parentCell = new Cell(Point.Zero);
             Cell cell = new Cell(Point.Zero);
+            cell.Parent = parentCell;
+
             Grid grid = new Grid(2, 2);
             List<Cell> closed = new List<Cell>();
             closed.Add(cell);
 
-            //var result = grid.ReconstructReversePath(closed);
+            List<Cell> expected = new List<Cell>();
+            expected.Add(parentCell);
+            expected.Add(cell);
 
-            //Assert.AreEqual(closed, result);
+            var result = grid.ReconstructReversePath(closed);
+
+            Assert.AreEqual(expected, result);
         }
-
 
     }
 }
