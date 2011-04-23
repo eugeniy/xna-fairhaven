@@ -25,7 +25,9 @@ namespace TowerDefense
         private Matrix view;
         private Matrix projection;
 
-        float cameraRotation = 180;
+        private float cameraRotation = 180;
+
+        private Vector3 cameraPosition = new Vector3(0, 0, 20);
 
 
         public Game1()
@@ -44,7 +46,7 @@ namespace TowerDefense
         {
             // TODO: Add your initialization logic here
 
-            map = new Grid(2, 1);
+            map = new Grid(2, 2);
 
             //map.Randomize();
             
@@ -104,7 +106,7 @@ namespace TowerDefense
 
             cameraRotation += (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.05f;
             view = Matrix.CreateRotationY(MathHelper.ToRadians(cameraRotation)) * 
-                Matrix.CreateLookAt(new Vector3(0, 0, 10), Vector3.Zero, Vector3.Up);
+                Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
 
 
             base.Update(gameTime);

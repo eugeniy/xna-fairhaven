@@ -89,7 +89,7 @@ namespace TowerDefense
             Matrix position;
             foreach (Cell cell in m_grid)
             {
-                position = world * Matrix.CreateTranslation(cell.Position.X+2, cell.Position.Y+2, 0f);
+                position = world * Matrix.CreateTranslation(cell.Position.X, cell.Position.Y, 0f);
                 cell.DrawModel(m_models["Cube"], position, view, projection);
             }
         }
@@ -127,7 +127,6 @@ namespace TowerDefense
             parent.G = 0;
             parent.H = EstimateCost(start, end);
             parent.F = parent.G + parent.H;
-            parent.ParentPosition = start;
 
             // Add parent to the open list, should be the only cell at this point
             m_open.Add(parent);

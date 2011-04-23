@@ -62,13 +62,16 @@ namespace UnitTests
         public void SetPoints()
         {
             Point point = new Point(5, 5);
+            Point parentPoint = new Point(3, 3);
             Cell cell = new Cell(point);
+            Cell parent = new Cell(parentPoint);
             cell.Position = point;
-            cell.ParentPosition = cell.Position;
+            cell.Parent = parent;
+            cell.Parent.Position = cell.Position;
             Point newPoint = new Point(1, 1);
             cell.Position = newPoint;
 
-            Assert.AreNotEqual(cell.ParentPosition, cell.Position);
+            Assert.AreNotEqual(cell.Parent.Position, cell.Position);
         }
 
         [Test]
