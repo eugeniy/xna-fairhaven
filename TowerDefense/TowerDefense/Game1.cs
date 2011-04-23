@@ -21,13 +21,12 @@ namespace TowerDefense
 
 
         Grid map;
+        Camera camera;
+
         private Matrix world;
         private Matrix view;
         private Matrix projection;
 
-        private float cameraRotation = 180;
-
-        private Vector3 cameraPosition = new Vector3(0, 0, 20);
 
 
         public Game1()
@@ -57,6 +56,9 @@ namespace TowerDefense
             // Toggle path flag for cells on the path
             //for (int i = 0; i < map.Path.Count; i++)
             //        map.Path[i].Status |= Cell.Type.Path;
+
+
+            camera = new Camera();
 
             world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             
@@ -104,9 +106,11 @@ namespace TowerDefense
             // TODO: Add your update logic here
 
 
-            cameraRotation += (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.05f;
-            view = Matrix.CreateRotationY(MathHelper.ToRadians(cameraRotation)) * 
-                Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
+            camera.Update(gameTime, out view);
+
+            //cameraRotation += (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.05f;
+            //view = Matrix.CreateRotationY(MathHelper.ToRadians(cameraRotation)) * 
+            //    Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
 
 
             base.Update(gameTime);

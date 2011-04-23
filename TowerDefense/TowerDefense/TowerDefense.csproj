@@ -111,6 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\Camera.cs" />
     <Compile Include="Engine\Cell.cs" />
     <Compile Include="Engine\Creep.cs" />
     <Compile Include="Engine\GameObject.cs" />

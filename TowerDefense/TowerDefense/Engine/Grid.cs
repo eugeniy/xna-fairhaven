@@ -89,7 +89,7 @@ namespace TowerDefense
             Matrix position;
             foreach (Cell cell in m_grid)
             {
-                position = world * Matrix.CreateTranslation(cell.Position.X, cell.Position.Y, 0f);
+                position = world * Matrix.CreateTranslation(cell.Coord.X, cell.Coord.Y, 0f);
                 cell.DrawModel(m_models["Cube"], position, view, projection);
             }
         }
@@ -99,7 +99,7 @@ namespace TowerDefense
         {
             foreach (Cell cell in m_grid)
             {
-                cell.Draw(spriteBatch, m_textures, new Vector2(cell.Position.X * 101 * m_scale + location.X, cell.Position.Y * 80 * m_scale + location.Y), m_scale);
+                cell.Draw(spriteBatch, m_textures, new Vector2(cell.Coord.X * 101 * m_scale + location.X, cell.Coord.Y * 80 * m_scale + location.Y), m_scale);
             }
         }
 
@@ -138,7 +138,7 @@ namespace TowerDefense
                 parent = m_open.DeleteMin();
 
                 // If the best cell is the end, we're done
-                if (parent.Position == end)
+                if (parent.Coord == end)
                 {
                     m_closed.Add(parent);
                     return ReconstructReversePath(m_closed);
@@ -167,7 +167,7 @@ namespace TowerDefense
 
                         this[p].Parent = parent;
                         this[p].G = g;
-                        this[p].H = EstimateCost(this[p].Position, end);
+                        this[p].H = EstimateCost(this[p].Coord, end);
                         this[p].F = this[p].G + this[p].H;
 
                         m_open.Add(this[p]);
@@ -204,7 +204,7 @@ namespace TowerDefense
         {
             try
             {
-                return FindPath(start, end).Select(n => n.Position).ToArray();
+                return FindPath(start, end).Select(n => n.Coord).ToArray();
             }
             catch (System.ArgumentNullException)
             {

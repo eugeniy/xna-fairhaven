@@ -65,13 +65,13 @@ namespace UnitTests
             Point parentPoint = new Point(3, 3);
             Cell cell = new Cell(point);
             Cell parent = new Cell(parentPoint);
-            cell.Position = point;
+            cell.Coord = point;
             cell.Parent = parent;
-            cell.Parent.Position = cell.Position;
+            cell.Parent.Coord = cell.Coord;
             Point newPoint = new Point(1, 1);
-            cell.Position = newPoint;
+            cell.Coord = newPoint;
 
-            Assert.AreNotEqual(cell.Parent.Position, cell.Position);
+            Assert.AreNotEqual(cell.Parent.Coord, cell.Coord);
         }
 
         [Test]
@@ -150,14 +150,14 @@ namespace UnitTests
             Grid grid = new Grid(2, 2);
 
             Assert.IsNotNull(grid.FindPath(start, zeroEnd));
-            Assert.AreEqual(start, grid.FindPath(start, zeroEnd)[0].Position);
-            Assert.AreEqual(zeroEnd, grid.FindPath(start, zeroEnd)[grid.m_closed.Count - 1].Position);
+            Assert.AreEqual(start, grid.FindPath(start, zeroEnd)[0].Coord);
+            Assert.AreEqual(zeroEnd, grid.FindPath(start, zeroEnd)[grid.m_closed.Count - 1].Coord);
 
             grid = new Grid(2, 2);
             Assert.IsNotNull(grid.FindPath(start, end));
             //Assert.AreEqual(null, grid.FindPath(start, end));
-            Assert.AreEqual(start, grid.FindPath(start, end)[0].Position);
-            Assert.AreEqual(end, grid.FindPath(start, end)[grid.m_closed.Count - 1].Position);
+            Assert.AreEqual(start, grid.FindPath(start, end)[0].Coord);
+            Assert.AreEqual(end, grid.FindPath(start, end)[grid.m_closed.Count - 1].Coord);
         }
 
         [Test]
@@ -294,7 +294,7 @@ namespace UnitTests
             Cell cellTwo = cellOne;
             Assert.AreEqual(cellOne, cellTwo);
 
-            Assert.AreEqual(grid[0, 0].Position, grid.FindPath(start, end)[0].Position);
+            Assert.AreEqual(grid[0, 0].Coord, grid.FindPath(start, end)[0].Coord);
             Assert.IsTrue(grid[0, 0].Equals(grid.FindPath(start, end)[0]));
             Assert.AreEqual(grid[0, 0], grid.FindPath(start, end)[0]);
             Assert.AreEqual(grid[1, 1], grid.FindPath(start, end)[1]);

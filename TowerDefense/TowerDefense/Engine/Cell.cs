@@ -10,8 +10,11 @@ namespace TowerDefense
 {
     public class Cell : GameObject
     {
-        public Model Model;
-        public Matrix[] Transforms;
+        //public Model Model;
+        //public Matrix[] Transforms;
+
+        // Cell position in the world space
+        //public Vector3 Position = Vector3.Zero;
 
 
         private Type m_status = Type.Open;
@@ -24,7 +27,7 @@ namespace TowerDefense
 
         public Cell(Point position)
         {
-            Position = position;
+            Coord = position;
         }
 
 
@@ -44,23 +47,26 @@ namespace TowerDefense
             set { m_status = value; }
         }
         
-        public Point Position { get; set; }
+        /// <summary>
+        /// Coordinates of the cell on the grid.
+        /// </summary>
+        public Point Coord { get; set; }
         public Cell Parent { get; set; }
 
         public Point[] Adjacent { get { return new Point[] {
-            new Point(Position.X, Position.Y + 1),
-            new Point(Position.X + 1, Position.Y + 1),
-            new Point(Position.X + 1, Position.Y),
-            new Point(Position.X + 1, Position.Y - 1),
-            new Point(Position.X, Position.Y - 1),
-            new Point(Position.X - 1, Position.Y - 1),
-            new Point(Position.X - 1, Position.Y),
-            new Point(Position.X - 1, Position.Y + 1)
+            new Point(Coord.X, Coord.Y + 1),
+            new Point(Coord.X + 1, Coord.Y + 1),
+            new Point(Coord.X + 1, Coord.Y),
+            new Point(Coord.X + 1, Coord.Y - 1),
+            new Point(Coord.X, Coord.Y - 1),
+            new Point(Coord.X - 1, Coord.Y - 1),
+            new Point(Coord.X - 1, Coord.Y),
+            new Point(Coord.X - 1, Coord.Y + 1)
         }; } }
 
         public override string ToString()
         {
-            return Position.ToString();
+            return Coord.ToString();
         }
     }
 
