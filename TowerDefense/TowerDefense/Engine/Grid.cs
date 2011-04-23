@@ -199,15 +199,6 @@ namespace TowerDefense
             }
         }
 
-        public Cell FindCellInList(IEnumerable<Cell> list, Point target)
-        {
-            foreach (Cell c in list)
-            {
-                if (c.Position == target)
-                    return c;
-            }
-            return null;
-        }
 
         /// <summary>
         /// Cell indexer
