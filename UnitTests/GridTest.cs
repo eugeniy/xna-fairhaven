@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using NUnit.Framework;
@@ -246,7 +247,7 @@ namespace UnitTests
             grid.FindPath(start, end);
             timer.Stop();
 
-            Assert.That(timer.ElapsedMilliseconds, Is.LessThan(800));
+            Assert.That(timer.ElapsedMilliseconds, Is.LessThan(750));
 
         }
 
@@ -290,8 +291,6 @@ namespace UnitTests
         [Test]
         public void FoundPathCellsReferenceCellsInGrid()
         {
-            
-
             Point start = new Point(0, 0);
             Point end = new Point(1, 1);
             Grid grid = new Grid(2, 2);
@@ -299,11 +298,31 @@ namespace UnitTests
             Cell cellOne = new Cell(start);
             Cell cellTwo = cellOne;
             Assert.AreEqual(cellOne, cellTwo);
-            
+
             Assert.AreEqual(grid[0, 0].Position, grid.FindPath(start, end)[0].Position);
             Assert.IsTrue(grid[0, 0].Equals(grid.FindPath(start, end)[0]));
-            Assert.AreEqual(grid[0,0], grid.FindPath(start, end)[0]);
+            Assert.AreEqual(grid[0, 0], grid.FindPath(start, end)[0]);
+            Assert.AreEqual(grid[1, 1], grid.FindPath(start, end)[1]);
         }
+
+        [Test]
+        public void FoundPathCorrectness()
+        {
+            Point start = new Point(0, 0);
+            Point end = new Point(0, 4);
+            Grid grid = new Grid(5, 5);
+            var expected = new List<Cell> { grid[0, 0], grid[0, 1], grid[0, 2], grid[0, 3], grid[0, 4] };
+
+            Assert.AreEqual(expected, grid.FindPath(start, end));
+
+            grid.Path = grid.FindPath(new Point(0, 0), new Point(0, 4));
+
+            Assert.AreEqual(expected, grid.Path);
+        }
+
+
+
+
 
 
     }

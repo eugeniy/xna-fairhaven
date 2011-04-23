@@ -50,10 +50,13 @@ namespace TowerDefense
             //    map[i, 4].Status = Cell.Type.Closed;
 
             // Calculate shortest path
-            map.Path = map.FindPath(new Point(0, 0), new Point(7, 0));
+            map.Path = map.FindPath(new Point(0, 0), new Point(0, 4));
 
-            //map.Path[0].Status |= Cell.Type.Path;
-                
+
+
+            map[0,0].Status |= Cell.Type.Path;
+            map.Path[1].Status |= Cell.Type.Path;
+
 
             // TODO: Do something when map.Path is null
             // Toggle path flag for cells on the path

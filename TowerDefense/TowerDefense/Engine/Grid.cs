@@ -46,6 +46,7 @@ namespace TowerDefense
 
         public void LoadContent(ContentManager Content)
         {
+            // FIXME: Add a placeholder for keys that don't exist
             m_cellTextures = new Dictionary<Enum, Texture2D>();
             m_cellTextures[Cell.Type.Open] = Content.Load<Texture2D>("Sprites/Grass Block");
             m_cellTextures[Cell.Type.Closed] = Content.Load<Texture2D>("Sprites/Stone Block Tall");
@@ -83,7 +84,6 @@ namespace TowerDefense
             m_closed = new List<Cell>(m_capacity);
 
             // Set parent to a starting point and set its g, h, f values
-            //Cell parent = new Cell(start);
             Cell parent = this[start.X, start.Y];
             parent.G = 0;
             parent.H = EstimateCost(start, end);
@@ -134,7 +134,7 @@ namespace TowerDefense
                             continue;
 
 
-                        Cell child = new Cell(p);
+                        Cell child = this[p];
                         child.ParentPosition = new Point(parent.Position.X, parent.Position.Y);
                         child.G = g;
                         child.H = EstimateCost(child.Position, end);
