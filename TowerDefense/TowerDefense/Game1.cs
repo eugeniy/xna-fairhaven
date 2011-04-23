@@ -37,20 +37,12 @@ namespace TowerDefense
         {
             // TODO: Add your initialization logic here
 
-            map = new Grid(8, 5);
+            map = new Grid(20, 14);
 
-            // Generate a test map
-            for (int i = 1; i < 8; i++)
-                map[i, 0].Status = Cell.Type.Closed;
-
-            for (int i = 0; i < 7; i++)
-                map[i, 2].Status = Cell.Type.Closed;
-
-            for (int i = 4; i < 8; i++)
-                map[i, 4].Status = Cell.Type.Closed;
-
+            map.Randomize();
+            
             // Calculate shortest path
-            map.Path = map.FindPath(new Point(0, 0), new Point(0, 4));
+            map.Path = map.FindPath(new Point(0, 0), new Point(19, 13));
 
             // TODO: Do something when map.Path is null
             // Toggle path flag for cells on the path
@@ -109,8 +101,12 @@ namespace TowerDefense
 
             // TODO: Add your drawing code here
 
+            //SpriteBlendMode.AlphaBlend, SpriteSortMode.Deferred,  SaveStateMode.None, SpriteScale
+
+
+
             spriteBatch.Begin();
-            map.Draw(spriteBatch, new Vector2(0, -10));
+            map.Draw(spriteBatch, Vector2.Zero);
             spriteBatch.End();
 
             base.Draw(gameTime);

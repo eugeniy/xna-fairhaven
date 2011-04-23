@@ -11,7 +11,6 @@ namespace TowerDefense
     public class Cell
     {
         public Texture2D Texture { get; set; }
-        
 
         private Type m_status = Type.Open;
 
@@ -26,9 +25,9 @@ namespace TowerDefense
             Position = position;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Dictionary<Enum, Texture2D> textures, Vector2 location)
+        public void Draw(SpriteBatch spriteBatch, Dictionary<Enum, Texture2D> textures, Vector2 location, float scale)
         {
-            spriteBatch.Draw(textures[Status], location, m_status.HasFlag(Type.Path) ? Color.Red : Color.White);
+            spriteBatch.Draw(textures[Status], location, null, m_status.HasFlag(Type.Path) ? Color.Red : Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
         }
 
         public int G { get; set; }

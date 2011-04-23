@@ -23,6 +23,7 @@ namespace TowerDefense
         public List<Cell> m_closed;
 
         private Dictionary<Enum, Texture2D> m_cellTextures;
+        private float m_scale = 0.396f;
 
 
         public List<Cell> Path { get; set; }
@@ -44,12 +45,35 @@ namespace TowerDefense
         }
 
 
+        // TODO: Make this random :)
+        public void Randomize()
+        {
+            for (int i = 2; i < 8; i++)
+                this[i, 0].Status = Cell.Type.Closed;
+
+            for (int i = 0; i < 7; i++)
+                this[i, 3].Status = Cell.Type.Closed;
+
+            for (int i = 4; i < 10; i++)
+                this[i, 6].Status = Cell.Type.Closed;
+
+            for (int i = 2; i < 9; i++)
+                this[12, i].Status = Cell.Type.Closed;
+
+            for (int i = 7; i < 11; i++)
+                this[15, i].Status = Cell.Type.Closed;
+
+            for (int i = 10; i < 18; i++)
+                this[i, 11].Status = Cell.Type.Closed;
+        }
+
+
         public void LoadContent(ContentManager Content)
         {
             // FIXME: Add a placeholder for keys that don't exist
             m_cellTextures = new Dictionary<Enum, Texture2D>();
             m_cellTextures[Cell.Type.Open] = Content.Load<Texture2D>("Sprites/Grass Block");
-            m_cellTextures[Cell.Type.Closed] = Content.Load<Texture2D>("Sprites/Wall Block Tall");
+            m_cellTextures[Cell.Type.Closed] = Content.Load<Texture2D>("Sprites/Stone Block Tall");
             m_cellTextures[Cell.Type.OpenPath] = m_cellTextures[Cell.Type.Open];
         }
 
@@ -62,7 +86,7 @@ namespace TowerDefense
         {
             foreach (Cell cell in m_grid)
             {
-                cell.Draw(spriteBatch, m_cellTextures, new Vector2(cell.Position.X * 100 + location.X, cell.Position.Y * 80 + location.Y));
+                cell.Draw(spriteBatch, m_cellTextures, new Vector2(cell.Position.X * 101 * m_scale + location.X, cell.Position.Y * 80 * m_scale + location.Y), m_scale);
             }
         }
 
