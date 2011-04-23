@@ -53,6 +53,10 @@ namespace TowerDefense
             new Point(Position.X - 1, Position.Y + 1)
         }; } }
 
+        public override string ToString()
+        {
+            return Position.ToString();
+        }
     }
 
     public class CellComparer : Comparer<Cell>

@@ -168,24 +168,21 @@ namespace TowerDefense
         }
 
 
-
+        // TODO: handle null parents
         public List<Cell> ReconstructReversePath(List<Cell> closed)
         {
+            Path = new List<Cell>();
 
+            var current = closed.Last();
 
-            Cell fNode = closed[closed.Count - 1];
-            for (int i = closed.Count - 1; i >= 0; i--)
+            // Hop through parents from the end to the start
+            while (current != null)
             {
-                if (fNode.Parent != null && fNode.Parent.Position == closed[i].Position || i == closed.Count - 1)
-                {
-                    fNode = closed[i];
-                }
-                else
-                    closed.RemoveAt(i);
+                Path.Insert(0, current);
+                current = current.Parent;
             }
 
-
-            return closed;
+            return Path;
         }
 
         public Array FindPathArray(Point start, Point end)
