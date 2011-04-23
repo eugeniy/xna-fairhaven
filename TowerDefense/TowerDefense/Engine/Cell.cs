@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TowerDefense
 {
-    public class Cell
+    public class Cell : GameObject
     {
         private Type m_status = Type.Open;
 
@@ -22,6 +22,7 @@ namespace TowerDefense
         {
             Position = position;
         }
+
 
         public void Draw(SpriteBatch spriteBatch, Dictionary<Enum, Texture2D> textures, Vector2 location, float scale)
         {

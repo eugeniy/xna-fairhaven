@@ -45,3 +45,4 @@ D:\Projects\TowerDefense\TowerDefense\TowerDefense\bin\x86\Debug\Content\Sprites
 D:\Projects\TowerDefense\TowerDefense\TowerDefense\bin\x86\Debug\Content\Sprites\Water Block.xnb
 D:\Projects\TowerDefense\TowerDefense\TowerDefense\bin\x86\Debug\Content\Sprites\Wood Block.xnb
 D:\Projects\TowerDefense\TowerDefense\TowerDefense\bin\x86\Debug\Content\Sprites\Grass Block.xnb
+D:\Projects\TowerDefense\TowerDefense\TowerDefense\bin\x86\Debug\Content\Models\Cube.xnb

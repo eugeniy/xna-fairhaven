@@ -113,6 +113,7 @@
   <ItemGroup>
     <Compile Include="Engine\Cell.cs" />
     <Compile Include="Engine\Creep.cs" />
+    <Compile Include="Engine\GameObject.cs" />
     <Compile Include="Engine\Grid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

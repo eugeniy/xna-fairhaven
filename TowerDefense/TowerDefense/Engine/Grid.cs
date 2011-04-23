@@ -20,7 +20,8 @@ namespace TowerDefense
         public IntervalHeap<Cell> m_open;
         public List<Cell> m_closed;
 
-        private Dictionary<Enum, Texture2D> m_cellTextures;
+        private Dictionary<Enum, Texture2D> m_textures;
+        private Dictionary<string, Model> m_models;
         private float m_scale = 0.396f;
 
 
@@ -69,21 +70,36 @@ namespace TowerDefense
         public void LoadContent(ContentManager Content)
         {
             // FIXME: Add a placeholder for keys that don't exist
-            m_cellTextures = new Dictionary<Enum, Texture2D>();
-            m_cellTextures[Cell.Type.Open] = Content.Load<Texture2D>("Sprites/Grass Block");
-            m_cellTextures[Cell.Type.Closed] = Content.Load<Texture2D>("Sprites/Stone Block Tall");
-            m_cellTextures[Cell.Type.OpenPath] = m_cellTextures[Cell.Type.Open];
+            m_textures = new Dictionary<Enum, Texture2D>();
+            m_textures[Cell.Type.Open] = Content.Load<Texture2D>("Sprites/Grass Block");
+            m_textures[Cell.Type.Closed] = Content.Load<Texture2D>("Sprites/Stone Block Tall");
+            m_textures[Cell.Type.OpenPath] = m_textures[Cell.Type.Open];
+
+            m_models = new Dictionary<string, Model>();
+            m_models["Cube"] = Content.Load<Model>("Models/Cube");
         }
 
         public void Update()
         {
         }
 
+
+        public void Draw3D(Matrix world, Matrix view, Matrix projection)
+        {
+            Matrix position;
+            foreach (Cell cell in m_grid)
+            {
+                position = world * Matrix.CreateTranslation(cell.Position.X+2, cell.Position.Y+2, 0f);
+                cell.DrawModel(m_models["Cube"], position, view, projection);
+            }
+        }
+
+
         public void Draw(SpriteBatch spriteBatch, Vector2 location)
         {
             foreach (Cell cell in m_grid)
             {
-                cell.Draw(spriteBatch, m_cellTextures, new Vector2(cell.Position.X * 101 * m_scale + location.X, cell.Position.Y * 80 * m_scale + location.Y), m_scale);
+                cell.Draw(spriteBatch, m_textures, new Vector2(cell.Position.X * 101 * m_scale + location.X, cell.Position.Y * 80 * m_scale + location.Y), m_scale);
             }
         }
 

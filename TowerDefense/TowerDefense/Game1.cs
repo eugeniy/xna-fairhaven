@@ -19,7 +19,12 @@ namespace TowerDefense
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+
         Grid map;
+        private Matrix world;
+        private Matrix view;
+        private Matrix projection;
+
 
         public Game1()
         {
@@ -37,17 +42,21 @@ namespace TowerDefense
         {
             // TODO: Add your initialization logic here
 
-            map = new Grid(20, 14);
+            map = new Grid(2, 2);
 
-            map.Randomize();
+            //map.Randomize();
             
             // Calculate shortest path
-            map.Path = map.FindPath(new Point(0, 0), new Point(19, 13));
+            //map.Path = map.FindPath(new Point(0, 0), new Point(19, 13));
 
             // TODO: Do something when map.Path is null
             // Toggle path flag for cells on the path
-            for (int i = 0; i < map.Path.Count; i++)
-                    map.Path[i].Status |= Cell.Type.Path;
+            //for (int i = 0; i < map.Path.Count; i++)
+            //        map.Path[i].Status |= Cell.Type.Path;
+
+            world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+            view = Matrix.CreateLookAt(new Vector3(0, 0, 10), new Vector3(0, 0, 0), Vector3.UnitY);
+            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, GraphicsDevice.Viewport.AspectRatio, 0.1f, 100f);
 
             base.Initialize();
         }
@@ -62,6 +71,8 @@ namespace TowerDefense
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+
 
             map.LoadContent(Content);
         }
@@ -102,7 +113,8 @@ namespace TowerDefense
             // TODO: Add your drawing code here
 
             spriteBatch.Begin();
-            map.Draw(spriteBatch, Vector2.Zero);
+            map.Draw3D(world, view, projection);
+            //map.Draw(spriteBatch, Vector2.Zero);
             spriteBatch.End();
 
             base.Draw(gameTime);
