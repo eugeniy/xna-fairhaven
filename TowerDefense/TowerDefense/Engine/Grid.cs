@@ -83,6 +83,8 @@ namespace TowerDefense
             m_open = new IntervalHeap<Cell>(m_capacity, new CellComparer());
             m_closed = new List<Cell>(m_capacity);
 
+            Cell temp;
+
             // Set parent to a starting point and set its g, h, f values
             Cell parent = this[start.X, start.Y];
             parent.G = 0;
@@ -116,32 +118,24 @@ namespace TowerDefense
                         int g = parent.G + GetCellCost(this[p]);
 
 
-
-
-
                         if (g == parent.G)
-                        {
-                            continue;
-                        }
-
-                        Cell cellInOpen = FindCellInList(m_open, p);
-
-                        if (cellInOpen != null && cellInOpen.G <= g)
-                            continue;
-
-                        Cell cellInClosed = FindCellInList(m_closed, p);
-                        if (cellInClosed != null && cellInClosed.G <= g)
                             continue;
 
 
-                        Cell child = this[p];
-                        child.ParentPosition = new Point(parent.Position.X, parent.Position.Y);
-                        child.G = g;
-                        child.H = EstimateCost(child.Position, end);
-                        child.F = child.G + child.H;
+                        // Check if m_open or m_closed contain a Cell with lower G value
+                        if (m_open.Find(n => n.Equals(this[p]), out temp) && temp.G <= g)
+                            continue;
+
+                        if (m_closed.Contains(this[p]) && m_closed.Find(n => n.Equals(this[p])).G <= g)
+                            continue;
 
 
-                        m_open.Add(child);
+                        this[p].ParentPosition = new Point(parent.Position.X, parent.Position.Y);
+                        this[p].G = g;
+                        this[p].H = EstimateCost(this[p].Position, end);
+                        this[p].F = this[p].G + this[p].H;
+
+                        m_open.Add(this[p]);
 
                     }
                 }

@@ -128,6 +128,15 @@
       <Time>2007-05-12T16:43:44-07:00</Time>
     </Item>
     <Item>
+      <Source>Sprites\Grass Block.png</Source>
+      <Name>Sprites\Grass Block</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Projects\TowerDefense\TowerDefense\TowerDefense\bin\x86\Debug\Content\Sprites\Grass Block.xnb</Output>
+      <Time>2007-05-12T16:48:56-07:00</Time>
+    </Item>
+    <Item>
       <Source>Sprites\Heart.png</Source>
       <Name>Sprites\Heart</Name>
       <Importer>TextureImporter</Importer>
@@ -351,15 +360,6 @@
       <Options>None</Options>
       <Output>D:\Projects\TowerDefense\TowerDefense\TowerDefense\bin\x86\Debug\Content\Sprites\Wood Block.xnb</Output>
       <Time>2007-05-26T22:11:20-07:00</Time>
-    </Item>
-    <Item>
-      <Source>Sprites\Grass Block.png</Source>
-      <Name>Sprites\Grass Block</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Projects\TowerDefense\TowerDefense\TowerDefense\bin\x86\Debug\Content\Sprites\Grass Block.xnb</Output>
-      <Time>2007-05-12T16:48:56-07:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

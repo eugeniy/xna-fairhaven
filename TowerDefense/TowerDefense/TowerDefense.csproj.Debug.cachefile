@@ -12,6 +12,7 @@ Content\Sprites\Enemy Bug.xnb
 Content\Sprites\Gem Blue.xnb
 Content\Sprites\Gem Green.xnb
 Content\Sprites\Gem Orange.xnb
+Content\Sprites\Grass Block.xnb
 Content\Sprites\Heart.xnb
 Content\Sprites\Key.xnb
 Content\Sprites\Plain Block.xnb
@@ -37,4 +38,3 @@ Content\Sprites\Wall Block Tall.xnb
 Content\Sprites\Wall Block.xnb
 Content\Sprites\Water Block.xnb
 Content\Sprites\Wood Block.xnb
-Content\Sprites\Grass Block.xnb

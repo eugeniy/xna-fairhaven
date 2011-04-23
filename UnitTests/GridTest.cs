@@ -58,7 +58,6 @@ namespace UnitTests
             Assert.AreEqual(x, grid.m_open.FindMax());
         }
 
-
         [Test]
         public void SetPoints()
         {
@@ -72,7 +71,6 @@ namespace UnitTests
             Assert.AreNotEqual(cell.ParentPosition, cell.Position);
         }
 
-
         [Test]
         public void CheckIndexers()
         {
@@ -85,7 +83,6 @@ namespace UnitTests
             grid[point].Status = Cell.Type.Closed;
             Assert.AreEqual(Cell.Type.Closed, grid[point].Status);
         }
-
 
         [Test]
         public void CheckAdjacent()
@@ -121,28 +118,6 @@ namespace UnitTests
             cell = new Cell(point);
             Assert.AreEqual(pointAdjacent, cell.Adjacent);
 
-        }
-
-
-        [Test]
-        public void FindInList()
-        {
-            Point firstPoint = new Point(1, 2);
-            Grid grid = new Grid(4, 4);
-            Cell cell = grid.FindCellInList(grid.m_open, firstPoint);
-
-            Assert.IsNull(cell);
-
-            Point secondPoint = new Point(3, 4);
-            Cell c1 = new Cell(secondPoint);
-            grid.m_open.Add(c1);
-
-            cell = grid.FindCellInList(grid.m_open, firstPoint);
-            Assert.IsNull(cell);
-
-            cell = grid.FindCellInList(grid.m_open, secondPoint);
-            Assert.IsNotNull(cell);
-            Assert.AreEqual(c1, cell);
         }
 
         [Test]
@@ -193,7 +168,6 @@ namespace UnitTests
             Assert.AreEqual(6, grid.FindPath(start, end).Count);
         }
 
-
         [Test]
         public void CheckFlags()
         {
@@ -218,15 +192,14 @@ namespace UnitTests
             Assert.IsFalse(grid[0, 0].Passable);
         }
 
-
         [Test]
         [Category("Long")]
         public void EvaluatePerformance()
         {
             Cell cell;
             Point start = new Point(0, 0);
-            Point end = new Point(50, 50);
-            Grid grid = new Grid(60, 60);
+            Point end = new Point(99, 99);
+            Grid grid = new Grid(100, 100);
 
             // Create a relatively complex map
             for (int i = 0; i < 40; i++)
@@ -247,11 +220,31 @@ namespace UnitTests
             grid.FindPath(start, end);
             timer.Stop();
 
-            Assert.That(timer.ElapsedMilliseconds, Is.LessThan(750));
+            Assert.That(timer.ElapsedMilliseconds, Is.LessThan(25));
 
         }
 
+        [Test]
+        [Category("Long")]
+        public void EvaluateComplexBoardPerformance()
+        {
+            Grid grid = new Grid(8, 5);
 
+            for (int i = 1; i < 8; i++)
+                grid[i, 0].Status = Cell.Type.Closed;
+
+            for (int i = 0; i < 7; i++)
+                grid[i, 2].Status = Cell.Type.Closed;
+
+            for (int i = 4; i < 8; i++)
+                grid[i, 4].Status = Cell.Type.Closed;
+
+            timer.Start();
+            grid.FindPath(new Point(0, 0), new Point(0, 4));
+            timer.Stop();
+
+            Assert.That(timer.ElapsedMilliseconds, Is.LessThan(15));
+        }
 
         [Test]
         public void FindShortestPathArray()
@@ -287,7 +280,6 @@ namespace UnitTests
             Assert.AreEqual(null, grid.FindPathArray(start, end));
         }
 
-
         [Test]
         public void FoundPathCellsReferenceCellsInGrid()
         {
@@ -319,11 +311,6 @@ namespace UnitTests
 
             Assert.AreEqual(expected, grid.Path);
         }
-
-
-
-
-
 
     }
 }
