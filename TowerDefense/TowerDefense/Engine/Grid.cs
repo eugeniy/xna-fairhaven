@@ -150,7 +150,7 @@ namespace TowerDefense
                             continue;
 
 
-                        this[p].ParentPosition = new Point(parent.Position.X, parent.Position.Y);
+                        this[p].Parent = parent;
                         this[p].G = g;
                         this[p].H = EstimateCost(this[p].Position, end);
                         this[p].F = this[p].G + this[p].H;
@@ -171,16 +171,19 @@ namespace TowerDefense
 
         public List<Cell> ReconstructReversePath(List<Cell> closed)
         {
+
+
             Cell fNode = closed[closed.Count - 1];
             for (int i = closed.Count - 1; i >= 0; i--)
             {
-                if (fNode.ParentPosition == closed[i].Position || i == closed.Count - 1)
+                if (fNode.Parent != null && fNode.Parent.Position == closed[i].Position || i == closed.Count - 1)
                 {
                     fNode = closed[i];
                 }
                 else
                     closed.RemoveAt(i);
             }
+
 
             return closed;
         }
