@@ -101,10 +101,6 @@ namespace TowerDefense
 
             // TODO: Add your drawing code here
 
-            //SpriteBlendMode.AlphaBlend, SpriteSortMode.Deferred,  SaveStateMode.None, SpriteScale
-
-
-
             spriteBatch.Begin();
             map.Draw(spriteBatch, Vector2.Zero);
             spriteBatch.End();

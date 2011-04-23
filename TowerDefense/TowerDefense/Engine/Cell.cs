@@ -10,8 +10,6 @@ namespace TowerDefense
 {
     public class Cell
     {
-        public Texture2D Texture { get; set; }
-
         private Type m_status = Type.Open;
 
         [Flags]
@@ -40,8 +38,8 @@ namespace TowerDefense
             get { return m_status; }
             set { m_status = value; }
         }
+        
         public Point Position { get; set; }
-
         public Point ParentPosition { get; set; }
         public Point[] Adjacent { get { return new Point[] {
             new Point(Position.X, Position.Y + 1),

@@ -79,7 +79,6 @@ namespace TowerDefense
 
         public void Update()
         {
-
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 location)
