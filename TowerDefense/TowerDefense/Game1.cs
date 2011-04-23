@@ -120,10 +120,14 @@ namespace TowerDefense
 
             // TODO: Add your drawing code here
 
-            spriteBatch.Begin();
+            //GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            //GraphicsDevice.BlendState = BlendState.Opaque;
+
             map.Draw3D(world, view, projection);
+
+            //spriteBatch.Begin();
             //map.Draw(spriteBatch, Vector2.Zero);
-            spriteBatch.End();
+            //spriteBatch.End();
 
             base.Draw(gameTime);
         }
