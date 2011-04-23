@@ -312,5 +312,19 @@ namespace UnitTests
             Assert.AreEqual(expected, grid.Path);
         }
 
+        [Test]
+        public void TestReversePath()
+        {
+            Cell cell = new Cell(Point.Zero);
+            Grid grid = new Grid(2, 2);
+            List<Cell> closed = new List<Cell>();
+            closed.Add(cell);
+
+            var result = grid.ReconstructReversePath(closed);
+
+            Assert.AreEqual(closed, result);
+        }
+
+
     }
 }

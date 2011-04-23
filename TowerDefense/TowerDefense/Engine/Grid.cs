@@ -13,8 +13,6 @@ namespace TowerDefense
 {
     public class Grid
     {
-        private bool found = false;
-
         private int m_capacity;
         private int m_width, m_height;
 
@@ -128,8 +126,7 @@ namespace TowerDefense
                 if (parent.Position == end)
                 {
                     m_closed.Add(parent);
-                    found = true;
-                    break;
+                    return ReconstructReversePath(m_closed);
                 }
 
                 // Walk through valid adjacent cells
@@ -165,26 +162,28 @@ namespace TowerDefense
                 m_closed.Add(parent);
             }
 
-            if (found)
-            {
-                Cell fNode = m_closed[m_closed.Count - 1];
-                for (int i = m_closed.Count - 1; i >= 0; i--)
-                {
-                    if (fNode.ParentPosition.X == m_closed[i].Position.X && fNode.ParentPosition.Y == m_closed[i].Position.Y || i == m_closed.Count - 1)
-                    {
-                        fNode = m_closed[i];
-                    }
-                    else
-                        m_closed.RemoveAt(i);
-                }
 
-                return m_closed;
-            }
 
             return null;
         }
 
 
+
+        public List<Cell> ReconstructReversePath(List<Cell> closed)
+        {
+            Cell fNode = closed[closed.Count - 1];
+            for (int i = closed.Count - 1; i >= 0; i--)
+            {
+                if (fNode.ParentPosition == closed[i].Position || i == closed.Count - 1)
+                {
+                    fNode = closed[i];
+                }
+                else
+                    closed.RemoveAt(i);
+            }
+
+            return closed;
+        }
 
         public Array FindPathArray(Point start, Point end)
         {
