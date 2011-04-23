@@ -49,7 +49,7 @@ namespace TowerDefense
             // FIXME: Add a placeholder for keys that don't exist
             m_cellTextures = new Dictionary<Enum, Texture2D>();
             m_cellTextures[Cell.Type.Open] = Content.Load<Texture2D>("Sprites/Grass Block");
-            m_cellTextures[Cell.Type.Closed] = Content.Load<Texture2D>("Sprites/Stone Block Tall");
+            m_cellTextures[Cell.Type.Closed] = Content.Load<Texture2D>("Sprites/Wall Block Tall");
             m_cellTextures[Cell.Type.OpenPath] = m_cellTextures[Cell.Type.Open];
         }
 
