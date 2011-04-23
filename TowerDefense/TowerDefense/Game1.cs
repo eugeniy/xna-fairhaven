@@ -105,12 +105,10 @@ namespace TowerDefense
 
             // TODO: Add your update logic here
 
+            MouseState mouseState = Mouse.GetState();
 
-            camera.Update(gameTime, out view);
+            camera.Update(gameTime, out view, mouseState);
 
-            //cameraRotation += (float)gameTime.ElapsedGameTime.TotalMilliseconds * 0.05f;
-            //view = Matrix.CreateRotationY(MathHelper.ToRadians(cameraRotation)) * 
-            //    Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Up);
 
 
             base.Update(gameTime);
