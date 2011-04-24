@@ -48,7 +48,7 @@ namespace TowerDefense
         {
             // TODO: Add your initialization logic here
 
-            map = new Grid(2, 2);
+            map = new Grid(100, 40);
 
             //map.Randomize();
             
