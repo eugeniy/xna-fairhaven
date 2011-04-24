@@ -17,27 +17,15 @@ namespace TowerDefense
     /// </summary>
     public class Camera : Microsoft.Xna.Framework.GameComponent
     {
-        public Matrix View { get; protected set; }
-        public Matrix Projection { get; protected set; }
+        private Matrix m_translation;
+        private Matrix m_rotation;
 
+        private Vector3 m_position = new Vector3(0, 0, 30);
+        private Vector3 m_angle = Vector3.Zero;
 
         private float m_windowWidth;
         private float m_windowHeight;
         private float m_aspectRatio;
-
-
-        public Vector3 Position;
-        public Vector3 Translation;
-
-        private float m_rotation = 45;
-
-        private float m_distance = 20;
-        private const float m_minDistance = 15;
-        private const float m_maxDistance = 40;
-
-        private float m_tilt = -30;
-        private const float m_minTilt = -75;
-        private const float m_maxTilt = 0;
 
         private const float m_scrollSpeed = 0.25f;
         private const int m_edgeSize = 20;
@@ -45,19 +33,21 @@ namespace TowerDefense
         private MouseState m_prevMouse;
 
 
+        /// <summary>
+        /// Creates the instance of the camera.
+        /// </summary>
         public Camera(Game game) : base(game)
         {
-            // TODO: Construct any child components here
+            m_translation = Matrix.Identity;
+            m_rotation = Matrix.Identity;
 
             m_windowWidth = (float)Game.Window.ClientBounds.Width;
             m_windowHeight = (float)Game.Window.ClientBounds.Height;
             m_aspectRatio = m_windowWidth / m_windowHeight;
 
-            Position = new Vector3(0, 0, Distance);
-            Translation = Vector3.Zero;
-
+            // Create default camera transformations
             Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, m_aspectRatio, 0.01f, 1000);
-            View = Matrix.CreateLookAt(Position, Vector3.Zero, Vector3.Up);
+            View = Matrix.CreateLookAt(m_position, Vector3.Zero, Vector3.Up);
         }
 
         /// <summary>
@@ -66,10 +56,68 @@ namespace TowerDefense
         /// </summary>
         public override void Initialize()
         {
-            // TODO: Add your initialization code here
-
             base.Initialize();
         }
+
+
+        /// <summary>
+        /// Handle the camera movement using user input.
+        /// </summary>
+        protected void ProcessInput()
+        {
+            MouseState mouse = Mouse.GetState();
+            KeyboardState keyboard = Keyboard.GetState();
+
+
+            // Zoom with a scroll wheel
+            if (mouse.ScrollWheelValue < m_prevMouse.ScrollWheelValue)
+                Move(y: -1);
+
+            else if (mouse.ScrollWheelValue > m_prevMouse.ScrollWheelValue)
+                Move(y: 1);
+
+
+            if (keyboard.IsKeyDown(Keys.LeftShift) || keyboard.IsKeyDown(Keys.RightShift))
+            {
+                // Tilt the camera with Shift+Up and Shift+Down
+                if (keyboard.IsKeyDown(Keys.Up)) 
+                    Rotate(x: m_scrollSpeed/2);
+
+                else if (keyboard.IsKeyDown(Keys.Down))
+                    Rotate(x: -m_scrollSpeed/2);
+
+                // Rotate the camera with Shift+Left and Shift+Right
+                else if (keyboard.IsKeyDown(Keys.Left))
+                    Rotate(y: -m_scrollSpeed / 2);
+
+                else if (keyboard.IsKeyDown(Keys.Right))
+                    Rotate(y: m_scrollSpeed / 2);
+            }
+
+
+            // Scroll with arrows or cursor on screen edges
+            if (keyboard.IsKeyDown(Keys.Up)
+                || mouse.Y < m_edgeSize + 1 && mouse.Y >= 0)
+                Move(z: m_scrollSpeed);
+
+            if (keyboard.IsKeyDown(Keys.Down)
+                || mouse.Y > m_windowHeight - m_edgeSize - 1 
+                && mouse.Y <= m_windowHeight)
+                Move(z: -m_scrollSpeed);
+
+            if (keyboard.IsKeyDown(Keys.Left)
+                || mouse.X < m_edgeSize + 1 && mouse.X >= 0)
+                Move(x: m_scrollSpeed);
+
+            if (keyboard.IsKeyDown(Keys.Right)
+                || mouse.X > m_windowWidth - m_edgeSize - 1
+                && mouse.X <= m_windowWidth)
+                Move(x: -m_scrollSpeed);
+
+
+            m_prevMouse = mouse;
+        }
+
 
         /// <summary>
         /// Allows the game component to update itself.
@@ -77,106 +125,57 @@ namespace TowerDefense
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add your update code here
-            MouseState mouse = Mouse.GetState();
-            KeyboardState keyboard = Keyboard.GetState();
+            m_translation = Matrix.Identity;
+            m_rotation = Matrix.Identity;
 
-            bool right_edge = (mouse.X > m_windowWidth - m_edgeSize - 1 && mouse.X <= m_windowWidth) ? true : false;
-            bool left_edge = (mouse.X < m_edgeSize + 1 && mouse.X >= 0) ? true : false;
-            bool top_edge = (mouse.Y < m_edgeSize + 1 && mouse.Y >= 0) ? true : false;
-            bool bottom_edge = (mouse.Y > m_windowHeight - m_edgeSize - 1 && mouse.Y <= m_windowHeight) ? true : false;
+            // Handle camera movement
+            ProcessInput();
 
-
-            // Zoom with a scroll wheel
-            if (mouse.ScrollWheelValue < m_prevMouse.ScrollWheelValue)
-                Position.Z = ++Distance;
-            else if (mouse.ScrollWheelValue > m_prevMouse.ScrollWheelValue)
-                Position.Z = --Distance;
-
-            // Tilt the camera with Shift+Up and Shift+Down
-            if ((keyboard.IsKeyDown(Keys.LeftShift) || keyboard.IsKeyDown(Keys.RightShift)) && keyboard.IsKeyDown(Keys.Up))
-                Tilt += m_scrollSpeed;
-            else if ((keyboard.IsKeyDown(Keys.LeftShift) || keyboard.IsKeyDown(Keys.RightShift)) && keyboard.IsKeyDown(Keys.Down))
-                Tilt -= m_scrollSpeed;
-
-            // Pan with cursor on edges and arrows
-            else
-            {
-                if (keyboard.IsKeyDown(Keys.Up) || top_edge)
-                    Translation.Y -= m_scrollSpeed;
-                if (keyboard.IsKeyDown(Keys.Down) || bottom_edge)
-                    Translation.Y += m_scrollSpeed;
-                if (keyboard.IsKeyDown(Keys.Left) || left_edge)
-                    Translation.X += m_scrollSpeed;
-                if (keyboard.IsKeyDown(Keys.Right) || right_edge)
-                    Translation.X -= m_scrollSpeed;
-            }
-
-            m_prevMouse = mouse;
-
-
-            // Do the actual translation
-            View =
-                Matrix.CreateRotationZ(MathHelper.ToRadians(Rotation))
-                * Matrix.CreateTranslation(Translation)
-                * Matrix.CreateRotationX(MathHelper.ToRadians(Tilt))
-                * Matrix.CreateLookAt(Position, Vector3.Zero, Vector3.Up);
-
-
-            
-
-
-
-
+            View = m_translation * View * m_rotation;
 
             base.Update(gameTime);
         }
 
 
-
         /// <summary>
-        /// Control camera distance from the map. Capped by min and max values.
+        /// Updates the translation matrix.
         /// </summary>
-        public float Distance
+        /// <param name="x">Distance to move along the X-axis.</param>
+        /// <param name="y">Distance to move along the Y-axis.</param>
+        /// <param name="z">Distance to move along the Z-axis.</param>
+        protected void Move(float x = 0, float y = 0, float z = 0)
         {
-            get { return m_distance; }
-            set
-            {
-                if (value > m_maxDistance) m_distance = m_maxDistance;
-                else if (value < m_minDistance) m_distance = m_minDistance;
-                else m_distance = value;
-            }
+            m_position.X += x;
+            m_position.Y += y;
+            m_position.Z += z;
+
+            m_translation *= Matrix.CreateTranslation(x, y, z);
         }
 
         /// <summary>
-        /// Control the tilt of the camera relative to the map. Capped by min and max values.
+        /// Updates the rotation matrix.
         /// </summary>
-        public float Tilt
+        /// <param name="x">Radians to rotate the camera upon the X-axis.</param>
+        /// <param name="y">Radians to rotate the camera upon the Y-axis.</param>
+        /// <param name="z">Radians to rotate the camera upon the Z-axis.</param>
+        protected void Rotate(float x = 0, float y = 0, float z = 0)
         {
-            get { return m_tilt; }
-            set
-            {
-                if (value > m_maxTilt) m_tilt = m_maxTilt;
-                else if (value < m_minTilt) m_tilt = m_minTilt;
-                else m_tilt = value;
-            }
+            m_angle.X += x;
+            m_angle.Y += y;
+            m_angle.Z += z;
+
+            m_rotation *= Matrix.CreateFromYawPitchRoll(y, x, z);
         }
 
         /// <summary>
-        /// Control the rotation of the camera relative to the map.
+        /// View matrix accessor.
         /// </summary>
-        public float Rotation
-        {
-            get { return m_rotation; }
-            set
-            {
-                if (value > 360) m_rotation = 0;
-                else if (value < 0) m_rotation = 360;
-                else m_rotation = value;
-            }
-        }
+        public Matrix View { get; protected set; }
 
-
+        /// <summary>
+        /// Projection matrix accessor.
+        /// </summary>
+        public Matrix Projection { get; protected set; }
 
     }
 }

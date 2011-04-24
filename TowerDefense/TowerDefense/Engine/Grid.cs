@@ -108,7 +108,9 @@ namespace TowerDefense
             Matrix position;
             foreach (Cell cell in m_grid)
             {
-                position = Matrix.CreateTranslation((float)cell.Coord.X * 2, (float)cell.Coord.Y * 2, cell.Status.HasFlag(Cell.Type.Closed) ? 1 : 0) * world;
+                position = Matrix.CreateTranslation((float)cell.Coord.X * 2, cell.Status.HasFlag(Cell.Type.Closed) ? 1 : 0, (float)cell.Coord.Y * 2) * world;
+
+                //position = Matrix.Identity;
 
                 cell.DrawModel(m_models["Cube"], position, view, projection, new Vector3(cell.Status.HasFlag(Cell.Type.Path) ? 1 : 0.2f, 0.5f, 0.2f));
             }
