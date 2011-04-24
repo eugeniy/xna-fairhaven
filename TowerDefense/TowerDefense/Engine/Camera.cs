@@ -45,20 +45,19 @@ namespace TowerDefense
         private MouseState m_prevMouse;
 
 
-        public Camera(Game game)
-            : base(game)
+        public Camera(Game game) : base(game)
         {
             // TODO: Construct any child components here
-
 
             m_windowWidth = (float)Game.Window.ClientBounds.Width;
             m_windowHeight = (float)Game.Window.ClientBounds.Height;
             m_aspectRatio = m_windowWidth / m_windowHeight;
 
-            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, m_aspectRatio, 0.01f, 1000);
-
             Position = new Vector3(0, 0, Distance);
             Translation = Vector3.Zero;
+
+            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, m_aspectRatio, 0.01f, 1000);
+            View = Matrix.CreateLookAt(Position, Vector3.Zero, Vector3.Up);
         }
 
         /// <summary>
@@ -124,7 +123,7 @@ namespace TowerDefense
                 * Matrix.CreateLookAt(Position, Vector3.Zero, Vector3.Up);
 
 
-
+            
 
 
 

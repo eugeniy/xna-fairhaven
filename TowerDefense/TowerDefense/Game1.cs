@@ -24,8 +24,6 @@ namespace TowerDefense
         Camera camera;
 
         private Matrix world;
-        //private Matrix view;
-        //private Matrix projection;
 
 
 
@@ -64,7 +62,7 @@ namespace TowerDefense
             camera = new Camera(this);
             Components.Add(camera);
 
-            world = Matrix.CreateTranslation(Vector3.Zero);
+            world = Matrix.Identity;
             
 
             base.Initialize();
@@ -107,12 +105,6 @@ namespace TowerDefense
                 this.Exit();
 
             // TODO: Add your update logic here
-
-
-
-            camera.Update(gameTime);
-
-
 
             base.Update(gameTime);
         }
