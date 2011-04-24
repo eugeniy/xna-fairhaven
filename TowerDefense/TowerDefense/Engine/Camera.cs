@@ -14,7 +14,7 @@ namespace TowerDefense
         private const float m_minDistance = 15;
         private const float m_maxDistance = 40;
 
-        private float m_tilt = -55;
+        private float m_tilt = -30;
         private const float m_minTilt = -75;
         private const float m_maxTilt = 0;
 

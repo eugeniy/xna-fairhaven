@@ -49,3 +49,4 @@ D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Water Block.xnb
 D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Wood Block.xnb
 D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Sprites\Grass Block.xnb
 D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Models\Cube.xnb
+D:\Projects\TowerDefense\UnitTests\bin\Debug\Content\Models\Grass.xnb

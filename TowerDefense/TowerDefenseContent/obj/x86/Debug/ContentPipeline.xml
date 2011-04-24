@@ -381,6 +381,26 @@
       <Output>obj\x86\Debug\Models\Cube_0.xml</Output>
       <Time>2011-04-23T13:27:11.9991938-07:00</Time>
     </Item>
+    <Item>
+      <Source>Models\Grass.fbx</Source>
+      <Name>Models\Grass</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Projects\TowerDefense\TowerDefense\TowerDefense\bin\x86\Debug\Content\Models\Grass.xnb</Output>
+      <Time>2011-04-23T21:27:11.1544112-07:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\Grass_0.xml</Key>
+        <Value>2011-04-23T21:49:51.9602449-07:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\Grass.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\Grass_0.xml</Output>
+      <Time>2011-04-23T21:27:11.1544112-07:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

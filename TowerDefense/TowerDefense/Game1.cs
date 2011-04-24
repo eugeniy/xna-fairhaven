@@ -48,17 +48,17 @@ namespace TowerDefense
         {
             // TODO: Add your initialization logic here
 
-            map = new Grid(100, 40);
+            map = new Grid(20, 14);
 
-            //map.Randomize();
+            map.Randomize();
             
             // Calculate shortest path
-            //map.Path = map.FindPath(new Point(0, 0), new Point(19, 13));
+            map.Path = map.FindPath(new Point(0, 0), new Point(19, 13));
 
             // TODO: Do something when map.Path is null
             // Toggle path flag for cells on the path
-            //for (int i = 0; i < map.Path.Count; i++)
-            //        map.Path[i].Status |= Cell.Type.Path;
+            for (int i = 0; i < map.Path.Count; i++)
+                    map.Path[i].Status |= Cell.Type.Path;
 
 
             camera = new Camera();

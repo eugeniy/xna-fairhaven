@@ -77,7 +77,7 @@ namespace TowerDefense
             m_textures[Cell.Type.OpenPath] = m_textures[Cell.Type.Open];
 
             m_models = new Dictionary<string, Model>();
-            m_models["Cube"] = Content.Load<Model>("Models/Cube");
+            m_models["Cube"] = Content.Load<Model>("Models/Grass");
         }
 
         public void Update()
@@ -108,8 +108,9 @@ namespace TowerDefense
             Matrix position;
             foreach (Cell cell in m_grid)
             {
-                position = Matrix.CreateTranslation((float)cell.Coord.X * 2, (float)cell.Coord.Y * 2, 0f) * world;
-                cell.DrawModel(m_models["Cube"], position, view, projection);
+                position = Matrix.CreateTranslation((float)cell.Coord.X * 2, (float)cell.Coord.Y * 2, cell.Status.HasFlag(Cell.Type.Closed) ? 1 : 0) * world;
+
+                cell.DrawModel(m_models["Cube"], position, view, projection, new Vector3(cell.Status.HasFlag(Cell.Type.Path) ? 1 : 0.2f, 0.5f, 0.2f));
             }
         }
 
