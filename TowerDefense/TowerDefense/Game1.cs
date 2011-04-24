@@ -32,6 +32,9 @@ namespace TowerDefense
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferMultiSampling = true;
+            this.IsMouseVisible = true;
+
             Content.RootDirectory = "Content";
         }
 
@@ -45,7 +48,7 @@ namespace TowerDefense
         {
             // TODO: Add your initialization logic here
 
-            map = new Grid(2, 2);
+            map = new Grid(100, 30);
 
             //map.Randomize();
             
@@ -105,9 +108,9 @@ namespace TowerDefense
 
             // TODO: Add your update logic here
 
-            MouseState mouseState = Mouse.GetState();
 
-            camera.Update(gameTime, out view, mouseState);
+
+            camera.Update(gameTime, graphics, out view);
 
 
 
