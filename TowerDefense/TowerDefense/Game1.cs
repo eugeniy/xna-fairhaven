@@ -24,8 +24,8 @@ namespace TowerDefense
         Camera camera;
 
         private Matrix world;
-        private Matrix view;
-        private Matrix projection;
+        //private Matrix view;
+        //private Matrix projection;
 
 
 
@@ -61,11 +61,11 @@ namespace TowerDefense
                     map.Path[i].Status |= Cell.Type.Path;
 
 
-            camera = new Camera();
+            camera = new Camera(this);
+            Components.Add(camera);
 
             world = Matrix.CreateTranslation(Vector3.Zero);
             
-            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, GraphicsDevice.Viewport.AspectRatio, 0.01f, 1000);
 
             base.Initialize();
         }
@@ -110,7 +110,7 @@ namespace TowerDefense
 
 
 
-            camera.Update(gameTime, graphics, out view);
+            camera.Update(gameTime);
 
 
 
@@ -130,7 +130,7 @@ namespace TowerDefense
             //GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             //GraphicsDevice.BlendState = BlendState.Opaque;
 
-            map.Draw3D(world, view, projection);
+            map.Draw3D(world, camera.View, camera.Projection);
 
             //spriteBatch.Begin();
             //map.Draw(spriteBatch, Vector2.Zero);

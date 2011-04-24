@@ -1,10 +1,31 @@
-﻿using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+
 
 namespace TowerDefense
 {
-    public class Camera
+    /// <summary>
+    /// This is a game component that implements IUpdateable.
+    /// </summary>
+    public class Camera : Microsoft.Xna.Framework.GameComponent
     {
+        public Matrix View { get; protected set; }
+        public Matrix Projection { get; protected set; }
+
+
+        private float m_windowWidth;
+        private float m_windowHeight;
+        private float m_aspectRatio;
+
+
         public Vector3 Position;
         public Vector3 Translation;
 
@@ -23,29 +44,48 @@ namespace TowerDefense
 
         private MouseState m_prevMouse;
 
-        
-        public Camera()
+
+        public Camera(Game game)
+            : base(game)
         {
+            // TODO: Construct any child components here
+
+
+            m_windowWidth = (float)Game.Window.ClientBounds.Width;
+            m_windowHeight = (float)Game.Window.ClientBounds.Height;
+            m_aspectRatio = m_windowWidth / m_windowHeight;
+
+            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, m_aspectRatio, 0.01f, 1000);
+
             Position = new Vector3(0, 0, Distance);
             Translation = Vector3.Zero;
         }
 
+        /// <summary>
+        /// Allows the game component to perform any initialization it needs to before starting
+        /// to run.  This is where it can query for any required services and load content.
+        /// </summary>
+        public override void Initialize()
+        {
+            // TODO: Add your initialization code here
+
+            base.Initialize();
+        }
 
         /// <summary>
-        /// Handle zooming and panning of the camera.
+        /// Allows the game component to update itself.
         /// </summary>
-        /// <param name="gameTime"></param>
-        /// <param name="graphics"></param>
-        /// <param name="view">The view matrix used for camera transformation. Output only.</param>
-        public void Update(GameTime gameTime, GraphicsDeviceManager graphics, out Matrix view)
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        public override void Update(GameTime gameTime)
         {
+            // TODO: Add your update code here
             MouseState mouse = Mouse.GetState();
             KeyboardState keyboard = Keyboard.GetState();
 
-            bool right_edge = (mouse.X > graphics.PreferredBackBufferWidth - m_edgeSize - 1 && mouse.X <= graphics.PreferredBackBufferWidth) ? true : false;
+            bool right_edge = (mouse.X > m_windowWidth - m_edgeSize - 1 && mouse.X <= m_windowWidth) ? true : false;
             bool left_edge = (mouse.X < m_edgeSize + 1 && mouse.X >= 0) ? true : false;
             bool top_edge = (mouse.Y < m_edgeSize + 1 && mouse.Y >= 0) ? true : false;
-            bool bottom_edge = (mouse.Y > graphics.PreferredBackBufferHeight - m_edgeSize - 1 && mouse.Y <= graphics.PreferredBackBufferHeight) ? true : false;
+            bool bottom_edge = (mouse.Y > m_windowHeight - m_edgeSize - 1 && mouse.Y <= m_windowHeight) ? true : false;
 
 
             // Zoom with a scroll wheel
@@ -72,24 +112,37 @@ namespace TowerDefense
                 if (keyboard.IsKeyDown(Keys.Right) || right_edge)
                     Translation.X -= m_scrollSpeed;
             }
-                
+
             m_prevMouse = mouse;
-            
+
 
             // Do the actual translation
-            view =
+            View =
                 Matrix.CreateRotationZ(MathHelper.ToRadians(Rotation))
                 * Matrix.CreateTranslation(Translation)
                 * Matrix.CreateRotationX(MathHelper.ToRadians(Tilt))
                 * Matrix.CreateLookAt(Position, Vector3.Zero, Vector3.Up);
+
+
+
+
+
+
+
+
+            base.Update(gameTime);
         }
+
+
 
         /// <summary>
         /// Control camera distance from the map. Capped by min and max values.
         /// </summary>
-        public float Distance {
+        public float Distance
+        {
             get { return m_distance; }
-            set {
+            set
+            {
                 if (value > m_maxDistance) m_distance = m_maxDistance;
                 else if (value < m_minDistance) m_distance = m_minDistance;
                 else m_distance = value;
@@ -123,6 +176,8 @@ namespace TowerDefense
                 else m_rotation = value;
             }
         }
+
+
 
     }
 }
