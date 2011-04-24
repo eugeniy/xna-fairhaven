@@ -17,6 +17,9 @@ namespace TowerDefense
         //public Vector3 Position = Vector3.Zero;
 
 
+        public int Width = 1;
+        public int Height = 1;
+
         private Type m_status = Type.Open;
 
         [Flags]

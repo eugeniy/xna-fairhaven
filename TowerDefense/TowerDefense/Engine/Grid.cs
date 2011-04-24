@@ -20,6 +20,7 @@ namespace TowerDefense
         public IntervalHeap<Cell> m_open;
         public List<Cell> m_closed;
 
+        private BoundingBox[] m_boundingBoxes;
         private Dictionary<Enum, Texture2D> m_textures;
         private Dictionary<string, Model> m_models;
         private float m_scale = 0.396f;
@@ -84,12 +85,30 @@ namespace TowerDefense
         }
 
 
+        private void InitBoundingBoxes()
+        {
+            List<BoundingBox> bbList = new List<BoundingBox>();
+
+            foreach (Cell cell in m_grid)
+            {
+                Vector3[] cellPoints = new Vector3[2];
+                cellPoints[0] = new Vector3(cell.Coord.X, 0, -cell.Coord.Y);
+                cellPoints[1] = new Vector3(cell.Coord.X + 1, cell.Height, -cell.Coord.Y - 1);
+                BoundingBox buildingBox = BoundingBox.CreateFromPoints(cellPoints);
+                bbList.Add(buildingBox);
+
+            }
+
+            m_boundingBoxes = bbList.ToArray();
+        }
+        
+        
         public void Draw3D(Matrix world, Matrix view, Matrix projection)
         {
             Matrix position;
             foreach (Cell cell in m_grid)
             {
-                position = world * Matrix.CreateTranslation(cell.Coord.X, cell.Coord.Y, 0f);
+                position = Matrix.CreateTranslation((float)cell.Coord.X * 2, (float)cell.Coord.Y * 2, 0f) * world;
                 cell.DrawModel(m_models["Cube"], position, view, projection);
             }
         }

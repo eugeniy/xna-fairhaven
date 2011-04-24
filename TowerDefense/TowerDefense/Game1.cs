@@ -48,7 +48,7 @@ namespace TowerDefense
         {
             // TODO: Add your initialization logic here
 
-            map = new Grid(100, 30);
+            map = new Grid(2, 2);
 
             //map.Randomize();
             
@@ -63,7 +63,7 @@ namespace TowerDefense
 
             camera = new Camera();
 
-            world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+            world = Matrix.CreateTranslation(Vector3.Zero);
             
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, GraphicsDevice.Viewport.AspectRatio, 0.01f, 1000);
 

@@ -13,6 +13,9 @@ namespace TowerDefense
 
         public void DrawModel(Model model, Matrix world, Matrix view, Matrix projection)
         {
+            //Matrix[] transforms = new Matrix[model.Bones.Count];
+            //model.CopyAbsoluteBoneTransformsTo(transforms);
+
             foreach (ModelMesh mesh in model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
@@ -22,7 +25,7 @@ namespace TowerDefense
                     effect.DirectionalLight0.Direction = new Vector3(4, 1, -6);
                     effect.AmbientLightColor = new Vector3(0.1f, 0.1f, 0.1f);
 
-                    effect.World = world;
+                    effect.World = world; //transforms[mesh.ParentBone.Index] * 
                     effect.View = view;
                     effect.Projection = projection;
                 }
