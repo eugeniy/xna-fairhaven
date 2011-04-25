@@ -14,7 +14,7 @@ namespace TowerDefense
         protected Vector3 m_up = Vector3.Up;
         protected Vector3 m_direction;
 
-        protected float m_pitch;
+        protected float m_pitch = 0;
         protected float m_pitchLimit = MathHelper.ToRadians(80);
         
         protected const float m_speed = 0.25f;
@@ -96,7 +96,7 @@ namespace TowerDefense
                 Matrix.CreateFromAxisAngle(m_up, -MathHelper.ToRadians(m_mouseSpeedX) * (mouse.X - m_prevMouse.X))
             );
 
-            // Pitch is limited to 90 degrees
+            // Pitch is limited to m_pitchLimit
             float angle = MathHelper.ToRadians(m_mouseSpeedY) * (mouse.Y - m_prevMouse.Y);
             if (Math.Abs(m_pitch + angle) < m_pitchLimit)
             {
