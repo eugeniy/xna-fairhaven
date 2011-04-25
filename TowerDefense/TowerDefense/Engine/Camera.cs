@@ -9,8 +9,8 @@ namespace TowerDefense
     /// </summary>
     public class Camera : Microsoft.Xna.Framework.GameComponent
     {
+        protected Vector3 m_position = new Vector3(0, 10, 30);
         protected Vector3 m_target = Vector3.Zero;
-        protected Vector3 m_position = new Vector3(0, 0, 30);
         protected Vector3 m_up = Vector3.Up;
         protected Vector3 m_direction;
 
@@ -31,6 +31,8 @@ namespace TowerDefense
         /// <summary>
         /// Creates the instance of the camera.
         /// </summary>
+        /// <param name="game">Provides graphics device initialization, game logic, 
+        /// rendering code, and a game loop.</param>
         public Camera(Game game) : base(game)
         {
             m_windowWidth = Game.Window.ClientBounds.Width;
@@ -43,6 +45,24 @@ namespace TowerDefense
 
             // Create default camera matrices
             Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, m_aspectRatio, 0.01f, 1000);
+            View = CreateLookAt();
+        }
+
+
+        /// <summary>
+        /// Creates the instance of the camera at the given location.
+        /// </summary>
+        /// <param name="game">Provides graphics device initialization, game logic, 
+        /// rendering code, and a game loop.</param>
+        /// <param name="position">Position of the camera.</param>
+        /// <param name="target">The target towards which the camera is pointing.</param>
+        public Camera(Game game, Vector3 position, Vector3 target) : this(game)
+        {
+            m_position = position;
+            m_target = target;
+            m_direction = m_target - m_position;
+            m_direction.Normalize();
+
             View = CreateLookAt();
         }
 
@@ -64,7 +84,7 @@ namespace TowerDefense
         /// <summary>
         /// Handle the camera movement using user input.
         /// </summary>
-        protected void ProcessInput()
+        protected virtual void ProcessInput()
         {
             MouseState mouse = Mouse.GetState();
             KeyboardState keyboard = Keyboard.GetState();
@@ -138,7 +158,7 @@ namespace TowerDefense
         /// <summary>
         /// Lock the mouse inside the window, preventing it from leaving.
         /// </summary>
-        protected void LockMouse(ref MouseState mouse)
+        protected virtual void LockMouse(ref MouseState mouse)
         {
             if (mouse.X < m_edgeSize || mouse.X > m_windowWidth - m_edgeSize
                 || mouse.Y < m_edgeSize || mouse.Y > m_windowHeight - m_edgeSize)
