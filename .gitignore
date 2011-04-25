@@ -1,0 +1,8 @@
+*.exe
+*.dll
+*.cachefile
+TowerDefense\TowerDefense\bin\*
+TowerDefense\TowerDefense\obj\*
+TowerDefense\TowerDefenseContent\obj\*
+UnitTests\bin\*
+UnitTests\obj\*
