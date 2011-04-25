@@ -19,19 +19,16 @@ namespace TowerDefense
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-
         Grid map;
         Camera camera;
-
-        private Matrix world;
-
 
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferMultiSampling = true;
-            this.IsMouseVisible = true;
+            graphics.PreferredBackBufferWidth = 1680;
+            graphics.PreferredBackBufferHeight = 1050;
 
             Content.RootDirectory = "Content";
         }
@@ -62,8 +59,6 @@ namespace TowerDefense
             camera = new Camera(this);
             Components.Add(camera);
 
-            world = Matrix.Identity;
-            
 
             base.Initialize();
         }
@@ -100,9 +95,17 @@ namespace TowerDefense
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            KeyboardState keyboard = Keyboard.GetState();
+            GamePadState gamepad = GamePad.GetState(PlayerIndex.One);
+
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (gamepad.Buttons.Back == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Escape))
                 this.Exit();
+
+            // Enter fullscreen
+            else if (keyboard.IsKeyDown(Keys.RightAlt) && keyboard.IsKeyDown(Keys.Enter))
+                graphics.ToggleFullScreen();
+
 
             // TODO: Add your update logic here
 
@@ -115,18 +118,13 @@ namespace TowerDefense
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.SteelBlue);
 
             // TODO: Add your drawing code here
 
-            //GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-            //GraphicsDevice.BlendState = BlendState.Opaque;
 
-            map.Draw3D(world, camera.View, camera.Projection);
+            map.Draw3D(camera);
 
-            //spriteBatch.Begin();
-            //map.Draw(spriteBatch, Vector2.Zero);
-            //spriteBatch.End();
 
             base.Draw(gameTime);
         }

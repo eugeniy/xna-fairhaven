@@ -13,6 +13,8 @@ namespace TowerDefense
 {
     public class Grid
     {
+        private Matrix m_world;
+
         private int m_capacity;
         private int m_width, m_height;
 
@@ -31,6 +33,8 @@ namespace TowerDefense
 
         public Grid(int width, int height)
         {
+            m_world = Matrix.Identity;
+
             m_width = width;
             m_height = height;
             m_capacity = width * height;
@@ -103,16 +107,14 @@ namespace TowerDefense
         }
         
         
-        public void Draw3D(Matrix world, Matrix view, Matrix projection)
+        public void Draw3D(Camera camera)
         {
             Matrix position;
             foreach (Cell cell in m_grid)
             {
-                position = Matrix.CreateTranslation((float)cell.Coord.X * 2, cell.Status.HasFlag(Cell.Type.Closed) ? 1 : 0, (float)cell.Coord.Y * 2) * world;
+                position = Matrix.CreateTranslation((float)cell.Coord.X * 2, cell.Status.HasFlag(Cell.Type.Closed) ? 1 : 0, (float)cell.Coord.Y * 2) * m_world;
 
-                //position = Matrix.Identity;
-
-                cell.DrawModel(m_models["Cube"], position, view, projection, new Vector3(cell.Status.HasFlag(Cell.Type.Path) ? 1 : 0.2f, 0.5f, 0.2f));
+                cell.DrawModel(m_models["Cube"], position, camera.View, camera.Projection, new Vector3(cell.Status.HasFlag(Cell.Type.Path) ? 1 : 0.2f, 0.5f, 0.2f));
             }
         }
 
