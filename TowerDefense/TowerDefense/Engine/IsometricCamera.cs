@@ -86,18 +86,7 @@ namespace TowerDefense
             else if (mouse.ScrollWheelValue < m_prevMouse.ScrollWheelValue)
                 m_position += m_up * m_speed;
 
-
-            LockMouse(ref mouse);
             m_prevMouse = mouse;
-        }
-
-
-        /// <summary>
-        /// Lock the mouse inside the window, preventing it from leaving.
-        /// Don't do anything for the isometric view.
-        /// </summary>
-        protected override void LockMouse(ref MouseState mouse)
-        {
         }
 
     }
