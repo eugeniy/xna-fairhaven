@@ -22,10 +22,10 @@ namespace TowerDefense
         protected const float m_mouseSpeedY = 0.15f;
         protected const int m_edgeSize = 20;
 
-        private int m_windowWidth;
-        private int m_windowHeight;
-        private float m_aspectRatio;
-        private MouseState m_prevMouse;
+        protected int m_windowWidth;
+        protected int m_windowHeight;
+        protected float m_aspectRatio;
+        protected MouseState m_prevMouse;
 
 
         /// <summary>
