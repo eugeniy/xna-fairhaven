@@ -1,5 +1,7 @@
 *.exe
+*.suo
 *.dll
+*.vsp
 *.cachefile
 TowerDefense/TowerDefense/bin/*
 TowerDefense/TowerDefense/obj/*
