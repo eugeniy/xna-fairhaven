@@ -56,7 +56,7 @@ namespace TowerDefense
                     map.Path[i].Status |= Cell.Type.Path;
 
 
-            camera = new Camera(this);
+            camera = new IsometricCamera(this);
             Components.Add(camera);
 
 

@@ -20,6 +20,7 @@ namespace TowerDefense
         protected const float m_speed = 0.25f;
         protected const float m_mouseSpeedX = 0.25f;
         protected const float m_mouseSpeedY = 0.15f;
+        protected float m_rotationSpeed = 0.025f;
         protected const int m_edgeSize = 20;
 
         protected int m_windowWidth;
