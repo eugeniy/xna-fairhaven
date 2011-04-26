@@ -27,8 +27,12 @@ namespace TowerDefense
         private Dictionary<string, Model> m_models;
         private float m_scale = 0.396f;
 
-
         public List<Cell> Path { get; set; }
+
+
+
+
+
         
 
         public Grid(int width, int height)
@@ -74,6 +78,7 @@ namespace TowerDefense
 
         public void LoadContent(ContentManager Content)
         {
+
             // FIXME: Add a placeholder for keys that don't exist
             m_textures = new Dictionary<Enum, Texture2D>();
             m_textures[Cell.Type.Open] = Content.Load<Texture2D>("Sprites/Grass Block");
@@ -112,7 +117,7 @@ namespace TowerDefense
             Matrix position;
             foreach (Cell cell in m_grid)
             {
-                position = Matrix.CreateTranslation((float)cell.Coord.X * 2, cell.Status.HasFlag(Cell.Type.Closed) ? 1 : 0, (float)cell.Coord.Y * 2) * m_world;
+                position = Matrix.CreateTranslation((float)cell.Coord.X * 2+2, cell.Status.HasFlag(Cell.Type.Closed) ? 1 : 0, (float)cell.Coord.Y * 2+2) * m_world;
 
                 cell.DrawModel(m_models["Cube"], position, camera.View, camera.Projection, new Vector3(cell.Status.HasFlag(Cell.Type.Path) ? 1 : 0.2f, 0.5f, 0.2f));
             }
