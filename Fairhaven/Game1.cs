@@ -24,6 +24,16 @@ namespace Fairhaven
 
 
 
+        // Particles
+        List<ParticleExplosion> explosions = new List<ParticleExplosion>();
+        ParticleExplosionSettings particleExplosionSettings = new ParticleExplosionSettings();
+        ParticleSettings particleSettings = new ParticleSettings();
+        Texture2D explosionTexture;
+        Texture2D explosionColorsTexture;
+        Effect explosionEffect;
+
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -75,6 +85,21 @@ namespace Fairhaven
 
             // TODO: use this.Content to load your game content here
 
+
+
+            // Load explosion textures and effect
+            explosionTexture = Content.Load<Texture2D>(@"Textures\Particle");
+            explosionColorsTexture = Content.Load<Texture2D>(@"Textures\Sun");
+            explosionEffect = Content.Load<Effect>(@"Effects\Particle");
+
+            // Set effect parameters that don't change per particle
+            explosionEffect.CurrentTechnique = explosionEffect.Techniques["Technique1"];
+            explosionEffect.Parameters["theTexture"].SetValue(explosionTexture);
+
+
+
+
+
             map.LoadContent(Content, GraphicsDevice);
         }
 
@@ -108,6 +133,42 @@ namespace Fairhaven
 
             // TODO: Add your update logic here
 
+
+            else if (keyboard.IsKeyDown(Keys.X))
+            {
+                explosions.Add(
+                new ParticleExplosion(GraphicsDevice, Vector3.One,
+        ParticleExplosion.rnd.Next(
+            particleExplosionSettings.minLife,
+            particleExplosionSettings.maxLife),
+        ParticleExplosion.rnd.Next(
+            particleExplosionSettings.minRoundTime,
+            particleExplosionSettings.maxRoundTime),
+        ParticleExplosion.rnd.Next(
+            particleExplosionSettings.minParticlesPerRound,
+            particleExplosionSettings.maxParticlesPerRound),
+        ParticleExplosion.rnd.Next(
+            particleExplosionSettings.minParticles,
+            particleExplosionSettings.maxParticles),
+             explosionColorsTexture, particleSettings,
+        explosionEffect));
+
+            }
+
+            // Loop through and update explosions
+            for (int i = 0; i < explosions.Count; ++i)
+            {
+                explosions[i].Update(gameTime);
+                // If explosion is finished, remove it
+                if (explosions[i].IsDead)
+                {
+                    explosions.RemoveAt(i);
+                    --i;
+                }
+            }
+                        
+
+
             base.Update(gameTime);
         }
 
@@ -132,6 +193,14 @@ namespace Fairhaven
             //rs.FillMode = FillMode.WireFrame;
             GraphicsDevice.RasterizerState = rs;
 
+
+
+
+            // Loop through and draw each particle explosion
+            foreach (ParticleExplosion pe in explosions)
+            {
+                pe.Draw(camera);
+            }
 
 
 
