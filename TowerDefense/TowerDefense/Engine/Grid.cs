@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -22,18 +21,11 @@ namespace TowerDefense
         public IntervalHeap<Cell> m_open;
         public List<Cell> m_closed;
 
-        private BoundingBox[] m_boundingBoxes;
-        private Dictionary<Enum, Texture2D> m_textures;
-        private Dictionary<string, Model> m_models;
-        private float m_scale = 0.396f;
+        private VertexPositionColor[] m_vertices;
+        private int[] m_indices;
+        private VertexBuffer m_vertexBuffer;
+        private BasicEffect m_effect;
 
-        public List<Cell> Path { get; set; }
-
-
-
-
-
-        
 
         public Grid(int width, int height)
         {
@@ -76,17 +68,17 @@ namespace TowerDefense
         }
 
 
-        public void LoadContent(ContentManager Content)
+        public void LoadContent(ContentManager content, GraphicsDevice graphicsDevice)
         {
+            SetupVertices();
+            SetupIndices();
 
-            // FIXME: Add a placeholder for keys that don't exist
-            m_textures = new Dictionary<Enum, Texture2D>();
-            m_textures[Cell.Type.Open] = Content.Load<Texture2D>("Sprites/Grass Block");
-            m_textures[Cell.Type.Closed] = Content.Load<Texture2D>("Sprites/Stone Block Tall");
-            m_textures[Cell.Type.OpenPath] = m_textures[Cell.Type.Open];
+            // Set vertex data in VertexBuffer
+            m_vertexBuffer = new VertexBuffer(graphicsDevice, typeof(VertexPositionColor), m_vertices.Length, BufferUsage.None);
+            m_vertexBuffer.SetData(m_vertices);
 
-            m_models = new Dictionary<string, Model>();
-            m_models["Cube"] = Content.Load<Model>("Models/Grass");
+            // Initialize the BasicEffect
+            m_effect = new BasicEffect(graphicsDevice);
         }
 
         public void Update()
@@ -94,43 +86,32 @@ namespace TowerDefense
         }
 
 
-        private void InitBoundingBoxes()
-        {
-            List<BoundingBox> bbList = new List<BoundingBox>();
 
-            foreach (Cell cell in m_grid)
-            {
-                Vector3[] cellPoints = new Vector3[2];
-                cellPoints[0] = new Vector3(cell.Coord.X, 0, -cell.Coord.Y);
-                cellPoints[1] = new Vector3(cell.Coord.X + 1, cell.Height, -cell.Coord.Y - 1);
-                BoundingBox buildingBox = BoundingBox.CreateFromPoints(cellPoints);
-                bbList.Add(buildingBox);
-
-            }
-
-            m_boundingBoxes = bbList.ToArray();
-        }
         
         
-        public void Draw3D(Camera camera)
-        {
-            Matrix position;
-            foreach (Cell cell in m_grid)
-            {
-                position = Matrix.CreateTranslation((float)cell.Coord.X * 2+2, cell.Status.HasFlag(Cell.Type.Closed) ? 1 : 0, (float)cell.Coord.Y * 2+2) * m_world;
 
-                cell.DrawModel(m_models["Cube"], position, camera.View, camera.Projection, new Vector3(cell.Status.HasFlag(Cell.Type.Path) ? 1 : 0.2f, 0.5f, 0.2f));
+
+
+        public void Draw(GraphicsDevice graphicsDevice, Camera camera)
+        {
+            graphicsDevice.SetVertexBuffer(m_vertexBuffer);
+
+            m_effect.World = m_world;
+            m_effect.View = camera.View;
+            m_effect.Projection = camera.Projection;
+            m_effect.VertexColorEnabled = true;
+
+            // Begin effect and draw for each pass
+            foreach (EffectPass pass in m_effect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+                graphicsDevice.DrawUserIndexedPrimitives<VertexPositionColor>(
+                    PrimitiveType.TriangleList, m_vertices, 0, m_vertices.Length,
+                    m_indices, 0, m_indices.Length / 3, VertexPositionColor.VertexDeclaration);
             }
         }
 
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 location)
-        {
-            foreach (Cell cell in m_grid)
-            {
-                cell.Draw(spriteBatch, m_textures, new Vector2(cell.Coord.X * 101 * m_scale + location.X, cell.Coord.Y * 80 * m_scale + location.Y), m_scale);
-            }
-        }
 
         /// <summary>
         /// Calculate the Manhattan Distance
@@ -241,6 +222,54 @@ namespace TowerDefense
             }
         }
 
+        public int GetCellCost(Cell cell)
+        {
+            return cell.Status.HasFlag(Cell.Type.Open) ? 1 : 0;
+        }
+
+
+
+        /// <summary>
+        /// Define points used to draw triangles.
+        /// </summary>
+        protected void SetupVertices()
+        {
+            m_vertices = new VertexPositionColor[m_width * m_height];
+
+            for (int x = 0; x < m_width; x++)
+            {
+                for (int y = 0; y < m_height; y++)
+                {
+                    m_vertices[x + y * m_width].Position = new Vector3(x, 0, -y);
+                    m_vertices[x + y * m_width].Color = this[x, y].Status.HasFlag(Cell.Type.Path) ? Color.Red : Color.White;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Define indices that specify the order in which points are contected.
+        /// </summary>
+        protected void SetupIndices()
+        {
+            int index = 0;
+            m_indices = new int[(m_width - 1) * (m_height - 1) * 6];
+            
+            for (int y = 0; y < m_height - 1; y++)
+            {
+                for (int x = 0; x < m_width - 1; x++)
+                {
+                    m_indices[index++] = x + (y + 1) * m_width; // top left
+                    m_indices[index++] = (x + 1) + y * m_width; // bottom right
+                    m_indices[index++] = x + y * m_width; // bottom left
+
+                    m_indices[index++] = x + (y + 1) * m_width;
+                    m_indices[index++] = (x + 1) + (y + 1) * m_width; // top right
+                    m_indices[index++] = (x + 1) + y * m_width;
+                }
+            }
+        }
+
 
         /// <summary>
         /// Cell indexer
@@ -262,11 +291,7 @@ namespace TowerDefense
         }
 
 
-        public int GetCellCost(Cell cell)
-        {
-            return cell.Status.HasFlag(Cell.Type.Open) ? 1 : 0;
-        }
-
+        public List<Cell> Path { get; set; }
         public int Width { get { return m_width; } }
         public int Height { get { return m_height; } }
         public int Count { get { return m_grid.Count; } }

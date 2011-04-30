@@ -24,16 +24,6 @@ namespace TowerDefense
 
 
 
-
-        VertexPositionColor[] verts;
-        int[] indices;
-
-        VertexBuffer vertexBuffer;
-        BasicEffect effect;
-
-
-
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -54,17 +44,17 @@ namespace TowerDefense
         {
             // TODO: Add your initialization logic here
 
-            map = new Grid(4, 3);
+            map = new Grid(20, 14);
 
-            //map.Randomize();
+            map.Randomize();
             
             // Calculate shortest path
-            //map.Path = map.FindPath(new Point(0, 0), new Point(19, 13));
+            map.Path = map.FindPath(new Point(0, 0), new Point(19, 13));
 
             // TODO: Do something when map.Path is null
             // Toggle path flag for cells on the path
-            //for (int i = 0; i < map.Path.Count; i++)
-            //        map.Path[i].Status |= Cell.Type.Path;
+            for (int i = 0; i < map.Path.Count; i++)
+                    map.Path[i].Status |= Cell.Type.Path;
 
 
             camera = new Camera(this);
@@ -85,77 +75,7 @@ namespace TowerDefense
 
             // TODO: use this.Content to load your game content here
 
-
-
-
-            // Setup vertices
-
-
-
-            verts = new VertexPositionColor[map.Width * map.Height];
-
-            for (int x = 0; x < map.Width; x++)
-            {
-                for (int y = 0; y < map.Height; y++)
-                {
-                    verts[x + y * map.Width].Position = new Vector3(x, 0, -y);
-                    verts[x + y * map.Width].Color = (x%2==0) ? Color.White : Color.Red;
-                }
-            }
-
-
-
-            // Setup indices
-
-
-
-
-
-
-
-
-            indices = new int[(map.Width - 1) * (map.Height - 1) * 6];
-            int counter = 0;
-            for (int y = 0; y < map.Height - 1; y++)
-            {
-                for (int x = 0; x < map.Width - 1; x++)
-                {
-                    int lowerLeft = x + y * map.Width;
-                    int lowerRight = (x + 1) + y * map.Width;
-                    int topLeft = x + (y + 1) * map.Width;
-                    int topRight = (x + 1) + (y + 1) * map.Width;
- 
-                    indices[counter++] = topLeft;
-                    indices[counter++] = lowerRight;
-                    indices[counter++] = lowerLeft;
- 
-                    indices[counter++] = topLeft;
-                    indices[counter++] = topRight;
-                    indices[counter++] = lowerRight;
-                }
-            }
-
-
-
-
-
-
-
-            // Set vertex data in VertexBuffer
-            vertexBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionColor),
-            verts.Length, BufferUsage.None);
-            vertexBuffer.SetData(verts);
-
-            // Initialize the BasicEffect
-            effect = new BasicEffect(GraphicsDevice);
-
-
-
-
-
-
-
-            map.LoadContent(Content);
+            map.LoadContent(Content, GraphicsDevice);
         }
 
         /// <summary>
@@ -204,35 +124,19 @@ namespace TowerDefense
 
 
 
-            GraphicsDevice.SetVertexBuffer(vertexBuffer);
+            
 
-
+            // Use wireframe mode for debugging
             RasterizerState rs = new RasterizerState();
-            rs.CullMode = CullMode.None;
+            //rs.CullMode = CullMode.None;
             rs.FillMode = FillMode.WireFrame;
             GraphicsDevice.RasterizerState = rs;
 
 
 
-            //Set object and camera info
-            effect.World = Matrix.Identity;
-            effect.View = camera.View;
-            effect.Projection = camera.Projection;
-            effect.VertexColorEnabled = true;
-            // Begin effect and draw for each pass
-            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-            {
-                pass.Apply();
-                GraphicsDevice.DrawUserIndexedPrimitives <VertexPositionColor>
-                    (PrimitiveType.TriangleList, verts, 0, verts.Length, indices, 0, indices.Length / 3, VertexPositionColor.VertexDeclaration);
-            }
 
 
-
-
-
-
-            map.Draw3D(camera);
+            map.Draw(GraphicsDevice, camera);
 
 
             base.Draw(gameTime);
