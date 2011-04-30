@@ -50,7 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fairhaven\Fairhaven\Fairhaven.csproj">
+    <ProjectReference Include="..\Fairhaven\Fairhaven.csproj">
       <Project>{BC6CD112-8CE0-497A-B559-1CC9787E4B6C}</Project>
       <Name>Fairhaven</Name>
     </ProjectReference>

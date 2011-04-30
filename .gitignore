@@ -3,8 +3,8 @@
 *.dll
 *.vsp
 *.cachefile
-Fairhaven/Fairhaven/bin/*
-Fairhaven/Fairhaven/obj/*
-Fairhaven/FairhavenContent/obj/*
+Fairhaven/bin/*
+Fairhaven/obj/*
+FairhavenContent/obj/*
 UnitTests/bin/*
 UnitTests/obj/*

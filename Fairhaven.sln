@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fairhaven", "Fairhaven\Fairhaven\Fairhaven.csproj", "{BC6CD112-8CE0-497A-B559-1CC9787E4B6C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fairhaven", "Fairhaven\Fairhaven.csproj", "{BC6CD112-8CE0-497A-B559-1CC9787E4B6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FairhavenContent", "Fairhaven\FairhavenContent\FairhavenContent.contentproj", "{B481E541-EC95-4173-A98D-B74F9101C5C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FairhavenContent", "FairhavenContent\FairhavenContent.contentproj", "{B481E541-EC95-4173-A98D-B74F9101C5C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{30DB17E5-AA71-4415-A38D-B3F0819397C3}"
 EndProject
