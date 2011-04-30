@@ -137,7 +137,7 @@ namespace Fairhaven
             else if (keyboard.IsKeyDown(Keys.X))
             {
                 explosions.Add(
-                new ParticleExplosion(GraphicsDevice, Vector3.One,
+                new ParticleExplosion(GraphicsDevice, new Vector3(0, 0, -200),
         ParticleExplosion.rnd.Next(
             particleExplosionSettings.minLife,
             particleExplosionSettings.maxLife),
@@ -178,7 +178,7 @@ namespace Fairhaven
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.SteelBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
 
@@ -188,24 +188,30 @@ namespace Fairhaven
             
 
             // Use wireframe mode for debugging
-            RasterizerState rs = new RasterizerState();
+            //RasterizerState rs = new RasterizerState();
             //rs.CullMode = CullMode.None;
             //rs.FillMode = FillMode.WireFrame;
-            GraphicsDevice.RasterizerState = rs;
+            //GraphicsDevice.RasterizerState = rs;
 
 
 
 
+
+
+
+            spriteBatch.Begin();
+            map.Draw(GraphicsDevice, camera);
+            //spriteBatch.End();
+
+
+            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
             // Loop through and draw each particle explosion
             foreach (ParticleExplosion pe in explosions)
             {
                 pe.Draw(camera);
             }
 
-
-
-
-            map.Draw(GraphicsDevice, camera);
+            spriteBatch.End();
 
 
             base.Draw(gameTime);

@@ -241,7 +241,7 @@ namespace Fairhaven
                 for (int y = 0; y < m_height; y++)
                 {
                     m_vertices[x + y * m_width].Position = new Vector3(x, 0, -y);
-                    m_vertices[x + y * m_width].Color = this[x, y].Status.HasFlag(Cell.Type.Path) ? Color.Red : Color.White;
+                    m_vertices[x + y * m_width].Color = this[x, y].Status.HasFlag(Cell.Type.Path) ? Color.White : Color.SteelBlue;
                 }
             }
         }
