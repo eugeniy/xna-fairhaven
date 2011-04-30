@@ -2,7 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace TowerDefense
+namespace Fairhaven
 {
     /// <summary>
     /// This is a game component that implements IUpdateable.

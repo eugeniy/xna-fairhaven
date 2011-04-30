@@ -50,9 +50,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TowerDefense\TowerDefense\TowerDefense.csproj">
+    <ProjectReference Include="..\Fairhaven\Fairhaven\Fairhaven.csproj">
       <Project>{BC6CD112-8CE0-497A-B559-1CC9787E4B6C}</Project>
-      <Name>TowerDefense</Name>
+      <Name>Fairhaven</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

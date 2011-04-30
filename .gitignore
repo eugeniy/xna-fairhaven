@@ -3,8 +3,8 @@
 *.dll
 *.vsp
 *.cachefile
-TowerDefense/TowerDefense/bin/*
-TowerDefense/TowerDefense/obj/*
-TowerDefense/TowerDefenseContent/obj/*
+Fairhaven/Fairhaven/bin/*
+Fairhaven/Fairhaven/obj/*
+Fairhaven/FairhavenContent/obj/*
 UnitTests/bin/*
 UnitTests/obj/*

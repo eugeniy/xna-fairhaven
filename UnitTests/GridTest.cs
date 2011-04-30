@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using NUnit.Framework;
 
-using TowerDefense;
+using Fairhaven;
 using C5;
 
 namespace UnitTests

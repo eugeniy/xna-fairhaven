@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace TowerDefense
+namespace Fairhaven
 {
     /// <summary>
     /// This is the main type for your game
@@ -129,7 +129,7 @@ namespace TowerDefense
             // Use wireframe mode for debugging
             RasterizerState rs = new RasterizerState();
             //rs.CullMode = CullMode.None;
-            rs.FillMode = FillMode.WireFrame;
+            //rs.FillMode = FillMode.WireFrame;
             GraphicsDevice.RasterizerState = rs;
 
 

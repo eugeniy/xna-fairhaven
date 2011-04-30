@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using C5;
 
-namespace TowerDefense
+namespace Fairhaven
 {
     public class Grid
     {
