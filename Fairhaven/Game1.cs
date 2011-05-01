@@ -146,10 +146,12 @@ namespace Fairhaven
             // TODO: Add your update logic here
 
 
-            else if (keyboard.IsKeyDown(Keys.X) && elapsedTime > TimeSpan.FromSeconds(1))
+
+
+            if (elapsedTime > TimeSpan.FromSeconds(1))
             {
                 explosions.Add(
-                new ParticleExplosion(GraphicsDevice, new Vector3(0, 0, -200),
+                new ParticleExplosion(GraphicsDevice, new Vector3(-10, -20, -200),
                     ParticleExplosion.rnd.Next(
                         particleExplosionSettings.minLife,
                         particleExplosionSettings.maxLife),
