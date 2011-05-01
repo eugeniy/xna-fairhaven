@@ -23,6 +23,7 @@ namespace Fairhaven
         Camera camera;
 
 
+        
 
 
         // Particles
@@ -32,6 +33,8 @@ namespace Fairhaven
         Texture2D explosionTexture;
         Texture2D explosionColorsTexture;
         Effect explosionEffect;
+
+        TimeSpan elapsedTime = TimeSpan.Zero;
 
 
 
@@ -127,6 +130,10 @@ namespace Fairhaven
             KeyboardState keyboard = Keyboard.GetState();
             GamePadState gamepad = GamePad.GetState(PlayerIndex.One);
 
+
+            elapsedTime += gameTime.ElapsedGameTime;
+
+
             // Allows the game to exit
             if (gamepad.Buttons.Back == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Escape))
                 this.Exit();
@@ -139,25 +146,26 @@ namespace Fairhaven
             // TODO: Add your update logic here
 
 
-            else if (keyboard.IsKeyDown(Keys.X))
+            else if (keyboard.IsKeyDown(Keys.X) && elapsedTime > TimeSpan.FromSeconds(1))
             {
                 explosions.Add(
                 new ParticleExplosion(GraphicsDevice, new Vector3(0, 0, -200),
-        ParticleExplosion.rnd.Next(
-            particleExplosionSettings.minLife,
-            particleExplosionSettings.maxLife),
-        ParticleExplosion.rnd.Next(
-            particleExplosionSettings.minRoundTime,
-            particleExplosionSettings.maxRoundTime),
-        ParticleExplosion.rnd.Next(
-            particleExplosionSettings.minParticlesPerRound,
-            particleExplosionSettings.maxParticlesPerRound),
-        ParticleExplosion.rnd.Next(
-            particleExplosionSettings.minParticles,
-            particleExplosionSettings.maxParticles),
-             explosionColorsTexture, particleSettings,
-        explosionEffect));
+                    ParticleExplosion.rnd.Next(
+                        particleExplosionSettings.minLife,
+                        particleExplosionSettings.maxLife),
+                    ParticleExplosion.rnd.Next(
+                        particleExplosionSettings.minRoundTime,
+                        particleExplosionSettings.maxRoundTime),
+                    ParticleExplosion.rnd.Next(
+                        particleExplosionSettings.minParticlesPerRound,
+                        particleExplosionSettings.maxParticlesPerRound),
+                    ParticleExplosion.rnd.Next(
+                        particleExplosionSettings.minParticles,
+                        particleExplosionSettings.maxParticles),
+                         explosionColorsTexture, particleSettings,
+                    explosionEffect));
 
+                elapsedTime = TimeSpan.Zero;
             }
 
             // Loop through and update explosions
