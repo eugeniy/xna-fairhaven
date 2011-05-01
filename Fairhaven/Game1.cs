@@ -24,6 +24,7 @@ namespace Fairhaven
 
 
 
+
         // Particles
         List<ParticleExplosion> explosions = new List<ParticleExplosion>();
         ParticleExplosionSettings particleExplosionSettings = new ParticleExplosionSettings();
@@ -70,6 +71,8 @@ namespace Fairhaven
             camera = new Camera(this);
             Components.Add(camera);
 
+            Components.Add(new Statistics(this));
+
 
             base.Initialize();
         }
@@ -84,6 +87,8 @@ namespace Fairhaven
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            
 
 
 
@@ -200,6 +205,11 @@ namespace Fairhaven
 
 
             spriteBatch.Begin();
+
+
+            
+
+
             map.Draw(GraphicsDevice, camera);
             //spriteBatch.End();
 
